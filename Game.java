@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 public class Game {
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel;
+	JPanel titleNamePanel, startButtonPanel, howToPanel;
 	JLabel titleName;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton;
-	Font startFont = new Font("Times New Roman", Font.PLAIN, 30);
+	JButton startButton,howToButton;
+	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	
 	 public static void main(String[] args){
 		new Game();
@@ -37,21 +37,33 @@ public class Game {
 		 titleName.setForeground(Color.white);//color of text
 		 titleName.setFont(titleFont);
 		 
-		 startButtonPanel = new JPanel();
-		 startButtonPanel.setBounds(300,400,200,100);
-		 startButtonPanel.setBackground(Color.black);
+		 howToPanel = new JPanel();
+		 howToPanel.setBounds(280,345,200,100);
+		 howToPanel.setBackground(Color.black);
+		 
+		 howToButton = new JButton("How To Play");
+		 howToButton.setBackground(Color.black);
+		 howToButton.setForeground(Color.white);
+		 howToButton.setFont(buttonFont);
 		 
 		 startButton = new JButton("START");
 		 startButton.setBackground(Color.black);
 		 startButton.setForeground(Color.white);
-		 startButton.setFont(startFont);
+		 startButton.setFont(buttonFont);
+		 
+		 startButtonPanel = new JPanel();
+		 startButtonPanel.setBounds(300,400,150,65);
+		 startButtonPanel.setBackground(Color.black);
 		 
 		 titleNamePanel.add(titleName);
 		 startButtonPanel.add(startButton);
+		 howToPanel.add(howToButton);
 		 
 		 con.add(titleNamePanel);
 		 con.add(startButtonPanel);
+		 con.add(howToPanel);
 		 window.setVisible(true);
+		 
 		 int roll;//to roll dice
 		 String name;//player name
 		 Scanner keyboard = new Scanner(System.in);
