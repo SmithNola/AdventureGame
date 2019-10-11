@@ -11,19 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+
 public class Game {
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel;
+	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel;
 	JLabel titleName;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton,howToButton;
+	JButton startButton,howToButton,nextButton;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	JTextArea mainTextArea;
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	howToScreenHandler howToHandler = new howToScreenHandler();
+	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
 	
 	 public static void main(String[] args){
 		new Game();
@@ -70,6 +72,13 @@ public class Game {
 		 startButtonPanel.add(startButton);
 		 howToPanel.add(howToButton);
 		 
+		 mainTextPanel = new JPanel();
+		 mainTextPanel.setBackground(Color.black);
+		 mainTextArea = new JTextArea();
+		 mainTextArea.setEditable(false);
+		 mainTextPanel.setVisible(false);
+		 
+		 con.add(mainTextPanel);
 		 con.add(titleNamePanel);
 		 con.add(startButtonPanel);
 		 con.add(howToPanel);
@@ -85,15 +94,12 @@ public class Game {
 	 }
 	 
 	 public void createGameScreen(){
-		 
+		 mainTextPanel.setVisible(true);
 		 titleNamePanel.setVisible(false);
-		 startButtonPanel.setVisible(false);
 		 howToPanel.setVisible(false);
 		 
-		 mainTextPanel = new JPanel();
 		 mainTextPanel.setBounds(50,50,700,400);
-		 mainTextPanel.setBackground(Color.black);
-		 con.add(mainTextPanel);
+		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea = new JTextArea("You wake up to a loud banging at your bedroom door.\"Knight please wake up\""
 		 		+ " You open up the door and before you can speak the servant hands you a letter with the king's seal on it.\n\n"
@@ -109,20 +115,25 @@ public class Game {
 		 mainTextArea.setEditable(false); 
 		 mainTextPanel.add(mainTextArea);
 		 
-		 //choiceButtonPanel = new JPanel();
-		 //choiceButtonPanel.setBounds(250, 350, 300, 150);
-		 //choiceButtonPanel.setBackground(Color.red);
-		 //con.add(choiceButtonPanel);
+		 startButtonPanel.remove(startButton);//removes previous instance of button since I edited it
+		 
+		 startButton = new JButton("Begin Your Adventure");
+		 startButton.setBackground(Color.black);
+		 startButton.setForeground(Color.white);
+		 startButton.setFont(buttonFont);
+		 startButton.addActionListener(mainGameHandler);
+		 
+		 startButtonPanel.setBounds(175,450,400,100);
+		 startButtonPanel.add(startButton);
+		 
 	 }
 	 
 	 public void howToScreen(){
 		 titleNamePanel.setVisible(false);
-		 startButtonPanel.setVisible(false);
 		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(true);
 		 
-		 mainTextPanel = new JPanel();
 		 mainTextPanel.setBounds(50,50,700,400);
-		 mainTextPanel.setBackground(Color.black);
 		 con.add(mainTextPanel);
 		 
 		 mainTextArea = new JTextArea("Luck -> your chances of leaving a fight out of 6\n"
@@ -141,6 +152,26 @@ public class Game {
 		 mainTextArea.setLineWrap(true);
 		 mainTextArea.setEditable(false); 
 		 mainTextPanel.add(mainTextArea);
+		 
+		 startButtonPanel.remove(startButton);
+		 
+		 startButton = new JButton("Start");
+		 startButton.setBackground(Color.black);
+		 startButton.setForeground(Color.white);
+		 startButton.setFont(buttonFont);
+		 startButton.addActionListener(startHandler);
+		 
+		 startButtonPanel.setBounds(300,450,100,100);
+		 startButtonPanel.add(startButton);
+		 
+		 
+	 }
+	 
+	 public void mainGame(){
+		//choiceButtonPanel = new JPanel();
+		 //choiceButtonPanel.setBounds(250, 350, 300, 150);
+		 //choiceButtonPanel.setBackground(Color.red);
+		 //con.add(choiceButtonPanel);
 	 }
 	 
 	 public class howToScreenHandler implements ActionListener{
@@ -154,6 +185,12 @@ public class Game {
 			 		createGameScreen();
 			 	}
 	 }
+	 
+	 public class mainGameScreenHandler implements ActionListener{
+		 	public void actionPerformed(ActionEvent event){
+		 		mainGame();
+		 	}
+}
 	 
 	 public static int Dice(){
 		 Random rand = new Random(); 
