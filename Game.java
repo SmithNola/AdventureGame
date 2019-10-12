@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -15,13 +16,16 @@ import javax.swing.JTextArea;
 public class Game {
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel;
-	JLabel titleName;
+	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
+	JLabel titleName, hpLabelp, weaponLabelp,hpLabele, weaponLabele,enemyLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton,howToButton,nextButton;
+	JButton startButton,howToButton,nextButton,choice1,choice2,choice3,choice4;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	JTextArea mainTextArea;
+	int playerHp,enemyHp;
+	String weaponp, weapone,enemy;
+	
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	howToScreenHandler howToHandler = new howToScreenHandler();
@@ -57,12 +61,14 @@ public class Game {
 		 howToButton.setForeground(Color.white);
 		 howToButton.setFont(buttonFont);
 		 howToButton.addActionListener(howToHandler);
+		 howToButton.setFocusPainted(false);
 		 
 		 startButton = new JButton("START");
 		 startButton.setBackground(Color.black);
 		 startButton.setForeground(Color.white);
 		 startButton.setFont(buttonFont);
 		 startButton.addActionListener(startHandler);
+		 startButton.setFocusPainted(false);//gets rid of the square around the button
 		 
 		 startButtonPanel = new JPanel();
 		 startButtonPanel.setBounds(300,400,150,65);
@@ -122,6 +128,7 @@ public class Game {
 		 startButton.setForeground(Color.white);
 		 startButton.setFont(buttonFont);
 		 startButton.addActionListener(mainGameHandler);
+		 startButton.setFocusPainted(false);
 		 
 		 startButtonPanel.setBounds(175,450,400,100);
 		 startButtonPanel.add(startButton);
@@ -160,6 +167,7 @@ public class Game {
 		 startButton.setForeground(Color.white);
 		 startButton.setFont(buttonFont);
 		 startButton.addActionListener(startHandler);
+		 startButton.setFocusPainted(false);
 		 
 		 startButtonPanel.setBounds(300,450,100,100);
 		 startButtonPanel.add(startButton);
@@ -168,10 +176,119 @@ public class Game {
 	 }
 	 
 	 public void mainGame(){
-		//choiceButtonPanel = new JPanel();
-		 //choiceButtonPanel.setBounds(250, 350, 300, 150);
-		 //choiceButtonPanel.setBackground(Color.red);
-		 //con.add(choiceButtonPanel);
+		 titleNamePanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 
+		 choiceButtonPanel = new JPanel();
+		 choiceButtonPanel.setBounds(250, 400, 300, 150);
+		 choiceButtonPanel.setBackground(Color.red);
+		 choiceButtonPanel.setLayout(new GridLayout(4,1));
+		 con.add(choiceButtonPanel);
+		 
+		 choice1=new JButton("Choice 1");
+		 choice1.setBackground(Color.black);
+		 choice1.setForeground(Color.white);
+		 choice1.setFont(buttonFont);
+		 choiceButtonPanel.add(choice1);
+		 choice1.setFocusPainted(false);
+		 
+
+		 choice2=new JButton("Choice 2");
+		 choice2.setBackground(Color.black);
+		 choice2.setForeground(Color.white);
+		 choice2.setFont(buttonFont);
+		 choiceButtonPanel.add(choice2);
+		 choice2.setFocusPainted(false);
+		 
+
+		 choice3=new JButton("Choice 3");
+		 choice3.setBackground(Color.black);
+		 choice3.setForeground(Color.white);
+		 choice3.setFont(buttonFont);
+		 choiceButtonPanel.add(choice3);
+		 choice3.setFocusPainted(false);
+
+		 choice4=new JButton("Choice 4");
+		 choice4.setBackground(Color.black);
+		 choice4.setForeground(Color.white);
+		 choice4.setFont(buttonFont);
+		 choiceButtonPanel.add(choice4);
+		 choice4.setFocusPainted(false);
+		 
+		 playerPanel = new JPanel();
+		 playerPanel.setBounds(100,10,600,50);
+		 playerPanel.setBackground(Color.black);
+		 playerPanel.setLayout(new GridLayout(1,2));
+		 con.add(playerPanel);
+		 
+		 hpLabelp=new JLabel("");
+		 hpLabelp.setFont(textFont);
+		 hpLabelp.setForeground(Color.white);
+		 playerPanel.add(hpLabelp);
+		 
+		 weaponLabelp=new JLabel("");
+		 weaponLabelp.setFont(textFont);
+		 weaponLabelp.setForeground(Color.white);
+		 playerPanel.add(weaponLabelp);
+		 
+		 enemyPanel = new JPanel();
+		 enemyPanel.setBounds(100,250,600,50);
+		 enemyPanel.setBackground(Color.black);
+		 enemyPanel.setLayout(new GridLayout(1,3));
+		 con.add(enemyPanel);
+		 
+		 enemyLabel=new JLabel("");
+		 enemyLabel.setFont(textFont);
+		 enemyLabel.setForeground(Color.white);
+		 enemyPanel.add(enemyLabel);
+		 
+		 hpLabele=new JLabel("");
+		 hpLabele.setFont(textFont);
+		 hpLabele.setForeground(Color.white);
+		 enemyPanel.add(hpLabele);
+		 
+		 weaponLabele=new JLabel("");
+		 weaponLabele.setFont(textFont);
+		 weaponLabele.setForeground(Color.white);
+		 enemyPanel.add(weaponLabele);
+		 
+		 playerSetup();
+		 
+		 mainTextPanel.setVisible(true);
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 mainTextArea.setText("Right out of the castle you encounter a bandit that likes to   target innocents\n"
+		 		+ "\"Give me all your money or die\" he says.\n"
+		 		+ "What do you do? He looks weak.");
+		 mainTextArea.setBounds(100,100,600,150);
+		 mainTextArea.setBackground(Color.black);
+		 mainTextArea.setForeground(Color.white);
+		 mainTextArea.setFont(textFont);
+		 mainTextArea.setLineWrap(true);
+		 mainTextArea.setEditable(false); 
+		 
+		 mainTextPanel.setBounds(100,100,600,150);
+		 mainTextPanel.add(mainTextArea);
+	 }
+	 
+	 public void playerSetup(){
+		 playerHp=50;
+		 weaponp="Bronze Sword";
+		 weaponLabelp.setText("Weapon: "+weaponp);
+		 hpLabelp.setText("HP: "+playerHp);
+		 
+		 enemy="Bandit";
+		 enemyHp=15;
+		 weapone="Bronze Sword";
+		 enemyLabel.setText(enemy);
+		 weaponLabele.setText("Weapon: "+weapone);
+		 hpLabele.setText("HP: "+enemyHp);
+	 }
+	 
+	 public void postion1(){
+		 
 	 }
 	 
 	 public class howToScreenHandler implements ActionListener{
