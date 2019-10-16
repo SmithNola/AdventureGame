@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+//Created by Nola Smith
 public class Game {
 	JFrame window;
 	Container con;
@@ -22,15 +22,17 @@ public class Game {
 	JButton startButton,howToButton,nextButton,choice1,choice2,choice3,choice4;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
+	Font choiceFont=new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea;
 	int playerHp,enemyHp;
 	String weaponp, weapone,enemy;
+	int position;
 	
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	howToScreenHandler howToHandler = new howToScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
-	
+	choiceButtonHandler choiceHandler = new choiceButtonHandler();
 	 public static void main(String[] args){
 		new Game();
 	 } 
@@ -184,38 +186,26 @@ public class Game {
 		 choiceButtonPanel = new JPanel();
 		 choiceButtonPanel.setBounds(250, 400, 300, 150);
 		 choiceButtonPanel.setBackground(Color.red);
-		 choiceButtonPanel.setLayout(new GridLayout(4,1));
+		 choiceButtonPanel.setLayout(new GridLayout(2,1));
 		 con.add(choiceButtonPanel);
 		 
-		 choice1=new JButton("Choice 1");
+		 choice1=new JButton("Attack");
 		 choice1.setBackground(Color.black);
 		 choice1.setForeground(Color.white);
-		 choice1.setFont(buttonFont);
+		 choice1.setFont(choiceFont);
 		 choiceButtonPanel.add(choice1);
 		 choice1.setFocusPainted(false);
+		 choice1.addActionListener(choiceHandler);
+		 choice1.setActionCommand("c1");
 		 
-
-		 choice2=new JButton("Choice 2");
+		 choice2=new JButton("Give him all your stuff");
 		 choice2.setBackground(Color.black);
 		 choice2.setForeground(Color.white);
-		 choice2.setFont(buttonFont);
+		 choice2.setFont(choiceFont);
 		 choiceButtonPanel.add(choice2);
 		 choice2.setFocusPainted(false);
-		 
-
-		 choice3=new JButton("Choice 3");
-		 choice3.setBackground(Color.black);
-		 choice3.setForeground(Color.white);
-		 choice3.setFont(buttonFont);
-		 choiceButtonPanel.add(choice3);
-		 choice3.setFocusPainted(false);
-
-		 choice4=new JButton("Choice 4");
-		 choice4.setBackground(Color.black);
-		 choice4.setForeground(Color.white);
-		 choice4.setFont(buttonFont);
-		 choiceButtonPanel.add(choice4);
-		 choice4.setFocusPainted(false);
+		 choice2.addActionListener(choiceHandler);
+		 choice2.setActionCommand("c2");
 		 
 		 playerPanel = new JPanel();
 		 playerPanel.setBounds(100,10,600,50);
@@ -273,6 +263,46 @@ public class Game {
 		 mainTextPanel.add(mainTextArea);
 	 }
 	 
+	 public void attack(){
+		 titleNamePanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 int weapondp=10;
+		 int weaponde=5;
+		 enemyHp=enemyHp-weapondp;
+		 
+		 if(enemyHp >0){
+		 mainTextPanel.setVisible(true);
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 mainTextArea.setText("You did" + weapondp + "damage to the enemy\n"
+		 		+ "The bandit did "+ weaponde + "damage to you");
+		 
+		 mainTextPanel.setBounds(100,100,600,150);
+		 mainTextPanel.add(mainTextArea);
+		 }
+	 }
+	 
+	 public void giveUp(){
+		 titleNamePanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 
+		 mainTextPanel.setVisible(true);
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 mainTextArea.setText("The bandit takes all your stuff.\n"
+		 		+ "Wow a bronze sword now I can win more fights\n"
+		 		+ "The bandit throws his wooden sword to the ground and leaves with your stuff\n"
+		 		+ "You now continue on with your journey with only a wooden sword.");
+		 
+		 mainTextPanel.setBounds(100,100,600,150);
+		 mainTextPanel.add(mainTextArea);
+		 
+	 }
+	 
 	 public void playerSetup(){
 		 playerHp=50;
 		 weaponp="Bronze Sword";
@@ -307,7 +337,23 @@ public class Game {
 		 	public void actionPerformed(ActionEvent event){
 		 		mainGame();
 		 	}
-}
+	 }
+
+	 public class choiceButtonHandler implements ActionListener{
+		 	public void actionPerformed(ActionEvent event){
+		 		String yourChoice = event.getActionCommand();
+		 		
+		 			switch(yourChoice){
+		 				case "c1":
+		 						attack();
+		 					break;
+		 				case "c2":
+		 						giveUp();
+		 					break;
+		 			}	
+		 	}
+	 }
+	 
 	 
 	 public static int Dice(){
 		 Random rand = new Random(); 
@@ -315,3 +361,4 @@ public class Game {
 		 return result;
 	 }
 }
+
