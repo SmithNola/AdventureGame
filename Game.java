@@ -24,9 +24,9 @@ public class Game {
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont=new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea;
-	int playerHp,enemyHp;
-	String weaponp, weapone,enemy;
 	int position;
+	Player p1 = new Player();
+	Enemy e = new Enemy();
 	
 	
 	startScreenHandler startHandler = new startScreenHandler();
@@ -270,18 +270,25 @@ public class Game {
 		 startButtonPanel.setVisible(false);
 		 int weapondp=10;
 		 int weaponde=5;
-		 enemyHp=enemyHp-weapondp;
+		 e.setHealth(e.getHealth()-weapondp);
 		 
-		 if(enemyHp >0){
+		 while(e.getHealth() >0){
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea.setText("You did" + weapondp + "damage to the enemy\n"
 		 		+ "The bandit did "+ weaponde + "damage to you");
-		 
+		 hpLabele.setText("HP: "+e.getHealth());
+		 hpLabelp.setText("HP: "+p1.getHealth());
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
 		 }
+		 
+		 mainTextArea.setText("Wow that was easy but you did take some damage\n"
+		 		+ "You see a health potion and some money next to him and pick them up\n"
+		 		+ "You gained 15 health and $10");
+			 
+		 
 	 }
 	 
 	 public void giveUp(){
@@ -301,20 +308,20 @@ public class Game {
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
 		 
+		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
+		 
 	 }
 	 
 	 public void playerSetup(){
-		 playerHp=50;
-		 weaponp="Bronze Sword";
-		 weaponLabelp.setText("Weapon: "+weaponp);
-		 hpLabelp.setText("HP: "+playerHp);
+		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
+		 hpLabelp.setText("HP: "+p1.getHealth());
 		 
-		 enemy="Bandit";
-		 enemyHp=15;
-		 weapone="Bronze Sword";
-		 enemyLabel.setText(enemy);
-		 weaponLabele.setText("Weapon: "+weapone);
-		 hpLabele.setText("HP: "+enemyHp);
+		 e.setType("Bandit");
+		 
+		 e.setWeapon("Wooden Sword");
+		 enemyLabel.setText(e.getType());
+		 weaponLabele.setText("Weapon: "+e.getWeapon());
+		 hpLabele.setText("HP: "+e.getHealth());
 	 }
 	 
 	 public void postion1(){

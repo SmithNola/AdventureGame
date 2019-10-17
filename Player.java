@@ -1,18 +1,21 @@
 public class Player {
-	private double money;
-	private String name;
-	private String weapon;
-	private String [] armor;
-	private int position;
-	private int health;
-	private int totalHealth;
-	private String [] potions;
+	private int health=50;
+	private String weapon="Bronze Sword";
 	
-	public void setName(String newName) {
-		this.name = newName;
+	
+	public void setHealth(int newHealth) {
+		this.health = newHealth;
 	}
 	
-	public String getName() {
-		return name;
+	public int getHealth() {
+		return health;
+	}
+	
+	public void setWeapon(String newWeapon){
+		this.weapon=newWeapon;
+	}
+	
+	public String getWeapon(){
+		return weapon;
 	}
 }
