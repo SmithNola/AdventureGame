@@ -4,9 +4,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 //Created by Nola Smith
 public class Game {
+	
 	JFrame window;
 	Container con;
 	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
@@ -24,15 +22,16 @@ public class Game {
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont=new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea;
-	int position;
+	String position;
 	Player p1 = new Player();
 	Enemy e = new Enemy();
-	
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	howToScreenHandler howToHandler = new howToScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
 	choiceButtonHandler choiceHandler = new choiceButtonHandler();
+	nextButtonHandler nextHandler = new nextButtonHandler();
+	
 	 public static void main(String[] args){
 		new Game();
 	 } 
@@ -91,13 +90,6 @@ public class Game {
 		 con.add(startButtonPanel);
 		 con.add(howToPanel);
 		 window.setVisible(true);
-		 
-		 //int roll;//to roll dice
-		 //String name;//player name
-		 //Scanner keyboard = new Scanner(System.in);
-		 //name=keyboard.nextLine();
-		 //Player p1 = new Player(); 
-		 //p1.setName(name);
 		
 	 }
 	 
@@ -261,35 +253,56 @@ public class Game {
 		 
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
+		  position = "start";
+		 
 	 }
 	 
 	 public void attack(){
+		 position="attack";
 		 titleNamePanel.setVisible(false);
 		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
-		 int weapondp=10;
-		 int weaponde=5;
-		 e.setHealth(e.getHealth()-weapondp);
 		 
-		 while(e.getHealth() >0){
+		 e.setHealth(e.getHealth()-p1.weapond());//when player attacks
+		 p1.setHealth(p1.getHealth()-e.weapond());//when enemy attacks
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea.setText("You did" + weapondp + "damage to the enemy\n"
-		 		+ "The bandit did "+ weaponde + "damage to you");
-		 hpLabele.setText("HP: "+e.getHealth());
-		 hpLabelp.setText("HP: "+p1.getHealth());
-		 mainTextPanel.setBounds(100,100,600,150);
-		 mainTextPanel.add(mainTextArea);
+		 if(e.getHealth()>0){
+			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+		 		+ "The bandit did "+ e.weapond() + " damage to you");
+			 hpLabele.setText("HP: "+e.getHealth());
+			 hpLabelp.setText("HP: "+p1.getHealth());
+			 mainTextPanel.setBounds(100,100,600,150);
+			 mainTextPanel.add(mainTextArea);
 		 }
-		 
-		 mainTextArea.setText("Wow that was easy but you did take some damage\n"
-		 		+ "You see a health potion and some money next to him and pick them up\n"
-		 		+ "You gained 15 health and $10");
-			 
-		 
-	 }
+		 else{
+			 	 choiceButtonPanel.setVisible(false);
+				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 		+ "The bandit has been defeated");
+				 hpLabele.setText("HP: "+0);
+				 hpLabelp.setText("HP: "+p1.getHealth());
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea); 
+				 
+				 nextButton = new JButton("==>");
+				 nextButton.setBackground(Color.black);
+				 nextButton.setForeground(Color.white);
+				 nextButton.setFont(buttonFont);
+				 nextButton.addActionListener(nextHandler);
+				 nextButton.setFocusPainted(false);
+				 
+				 nextButtonPanel = new JPanel();
+				 nextButtonPanel.setBounds(300,400,150,65);
+				 nextButtonPanel.setBackground(Color.black);
+				 nextButtonPanel.setVisible(true);
+				 nextButtonPanel.add(nextButton);
+				 con.add(nextButtonPanel);
+				 
+				 position ="fight1";
+		 }
+	}
 	 
 	 public void giveUp(){
 		 titleNamePanel.setVisible(false);
@@ -310,6 +323,24 @@ public class Game {
 		 
 		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
 		 
+		 choiceButtonPanel.setVisible(false);
+		 
+		 nextButton = new JButton("==>");
+		 nextButton.setBackground(Color.black);
+		 nextButton.setForeground(Color.white);
+		 nextButton.setFont(buttonFont);
+		 nextButton.addActionListener(nextHandler);
+		 nextButton.setFocusPainted(false);
+		 
+		 nextButtonPanel = new JPanel();
+		 nextButtonPanel.setBounds(300,400,150,65);
+		 nextButtonPanel.setBackground(Color.black);
+		 nextButtonPanel.setVisible(true);
+		 nextButtonPanel.add(nextButton);
+		 con.add(nextButtonPanel);
+		 
+		 position="bigTreeText";
+		 
 	 }
 	 
 	 public void playerSetup(){
@@ -317,6 +348,7 @@ public class Game {
 		 hpLabelp.setText("HP: "+p1.getHealth());
 		 
 		 e.setType("Bandit");
+		 e.setHealth(15);
 		 
 		 e.setWeapon("Wooden Sword");
 		 enemyLabel.setText(e.getType());
@@ -324,15 +356,65 @@ public class Game {
 		 hpLabele.setText("HP: "+e.getHealth());
 	 }
 	 
-	 public void postion1(){
+	 public void bigTree(){
+		 position="bigTree";
+		 enemyPanel.setVisible(false);
+		 nextButtonPanel.setVisible(true);
+		 choiceButtonPanel.setVisible(true);
 		 
+		 mainTextArea.setText("Hello, Would you mind spend some time with an old man to pass some time\n"
+		 		+ "I have some dice if you win I will give you the sword/n"
+		 		+ "If I win you have to help me with a task.");
+		
+		 
+		 
+	 }
+	 
+	 public class nextButtonHandler implements ActionListener{
+		 	public void actionPerformed(ActionEvent event){
+		 		enemyPanel.setVisible(false);
+		 		mainTextPanel.setVisible(false);
+		 		mainTextPanel.remove(mainTextArea);
+		 		switch(position){
+		 		
+ 					case "fight1":
+ 						
+ 						mainTextArea.setText("Wow that was easy but you did take some damage\n"
+ 							+ "You see a health potion next to him and  pick it up\n"
+ 							+ "You gained 15 health");
+ 						mainTextPanel.setBounds(100,100,600,150);
+ 						mainTextPanel.add(mainTextArea);
+ 						p1.setHealth(p1.getHealth()+15);
+ 						hpLabelp.setText("HP: "+p1.getHealth());
+ 					
+ 						position="bigTreeText";
+ 						mainTextPanel.setVisible(true);
+ 						break;
+ 				
+ 					case "bigTreeText":
+ 					
+ 						mainTextArea.setText("You continue on and encounter a big oak tree with a"
+ 					 		+ "long sword stuck in it. You tug on it but it is stuck in the tree real good.\n"
+ 					 		+ "Then a short stubby man comes out from behind the tree");
+ 						mainTextPanel.setBounds(100,100,600,150);
+ 						mainTextPanel.add(mainTextArea);
+ 						mainTextPanel.setVisible(true);
+ 						position="bigTree";
+ 						break;
+ 					
+ 					case "bigTree":
+ 						bigTree();
+ 						break;
+				}
+		 			
+		 	}
 	 }
 	 
 	 public class howToScreenHandler implements ActionListener{
 		 	public void actionPerformed(ActionEvent event){
 		 		howToScreen();
 		 	}
-}
+	 }
 	 
 	 public class startScreenHandler implements ActionListener{
 			 	public void actionPerformed(ActionEvent event){
@@ -350,22 +432,29 @@ public class Game {
 		 	public void actionPerformed(ActionEvent event){
 		 		String yourChoice = event.getActionCommand();
 		 		
-		 			switch(yourChoice){
-		 				case "c1":
-		 						attack();
+		 			switch(position){
+		 				case "attack":
+		 					switch(yourChoice){
+		 						case "c1":
+		 							attack();
+		 							break;
+		 						case "c2":
+		 							giveUp();
+		 							break;
+		 					}
 		 					break;
-		 				case "c2":
-		 						giveUp();
-		 					break;
+		 				case "start":
+		 					switch(yourChoice){
+	 						case "c1":
+	 							attack();
+	 							break;
+	 						case "c2":
+	 							giveUp();
+	 							break;
+	 					}
 		 			}	
 		 	}
 	 }
 	 
-	 
-	 public static int Dice(){
-		 Random rand = new Random(); 
-		 int result = rand.nextInt(7);//will return a random integer from 0 to 6
-		 return result;
-	 }
 }
 
