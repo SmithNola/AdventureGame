@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.Random;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -253,7 +254,7 @@ public class Game {
 		 
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
-		  position = "start";
+		 position = "start";
 		 
 	 }
 	 
@@ -315,10 +316,10 @@ public class Game {
 		 
 		 mainTextArea.setText("The bandit takes all your stuff.\n"
 		 		+ "Wow a bronze sword now I can win more fights\n"
-		 		+ "The bandit throws his wooden sword to the ground and leaves with your stuff\n"
-		 		+ "You now continue on with your journey with only a wooden sword.");
+		 		+ "The bandit throws his wooden sword to the ground and\nleaves with your stuff\n"
+		 		+ "You now continue on with your journey with only a\nwooden sword.");
 		 
-		 mainTextPanel.setBounds(100,100,600,150);
+		 mainTextPanel.setBounds(100,100,600,175);
 		 mainTextPanel.add(mainTextArea);
 		 
 		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
@@ -341,6 +342,8 @@ public class Game {
 		 
 		 position="bigTreeText";
 		 
+		 enemyPanel.setVisible(false);
+		 
 	 }
 	 
 	 public void playerSetup(){
@@ -360,13 +363,71 @@ public class Game {
 		 position="bigTree";
 		 enemyPanel.setVisible(false);
 		 nextButtonPanel.setVisible(true);
-		 choiceButtonPanel.setVisible(true);
+		 choiceButtonPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
 		 
-		 mainTextArea.setText("Hello, Would you mind spend some time with an old man to pass some time\n"
-		 		+ "I have some dice if you win I will give you the sword/n"
-		 		+ "If I win you have to help me with a task.");
+		 mainTextArea.setText("\"Hello, would you mind spend some time with an old man  to pass some time. "
+		 		+ "I have some dice if you win I will give you the sword\n"
+		 		+ "If I win you have to help me with a task.\" says the old man\n"
+		 		+ "You decide to play the game so you can get the sword");
+		 mainTextPanel.setBounds(100,100,600,150);
+		 mainTextPanel.add(mainTextArea);
+		 mainTextPanel.setVisible(true);
+		 
+		 position="play";
+		 
+	 }
+	 
+	 public void play(){
+		 enemyPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 nextButtonPanel.setVisible(false);
+		 Random rand = new Random();
+		 int nump = 0;
+		 int nume = 0;
 		
+		 while(nump==nume){
+			 nump = rand.nextInt(6);
+			 nume= rand.nextInt(6);
+			 if(nump==0){
+				 nump=6;
+			 }
+			 if(nume==0){
+				 nume=6;
+			 }
+		 }
 		 
+		 if(nump>nume){
+			 nextButtonPanel.setVisible(true);
+			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume
+					 +"/You win and the old man easily pulls out the sword from the tree and hands you the sword\n"
+					 + "\"I know we had a deal anyway but would you mind helping me still\" the old man askes");
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea);
+				 mainTextPanel.setVisible(true);
+				 position="knightStory";
+				 position="helpWin";
+				 
+		 }
+		 else{
+			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume+"Welp a deal is a deal right?");
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea);
+				 mainTextPanel.setVisible(true);
+				 position="helpLost";
+				 
+			choice1.setText("Stick to Deal");
+			choice2.setText("Break Deal");
+		 }
+		 
+		 
+	 }
+	 
+	 public void dogFight(){
+		 
+	 }
+	 
+	 public void knightStory(){
 		 
 	 }
 	 
@@ -394,7 +455,7 @@ public class Game {
  					case "bigTreeText":
  					
  						mainTextArea.setText("You continue on and encounter a big oak tree with a"
- 					 		+ "long sword stuck in it. You tug on it but it is stuck in the tree real good.\n"
+ 					 		+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real good.\n"
  					 		+ "Then a short stubby man comes out from behind the tree");
  						mainTextPanel.setBounds(100,100,600,150);
  						mainTextPanel.add(mainTextArea);
@@ -404,6 +465,14 @@ public class Game {
  					
  					case "bigTree":
  						bigTree();
+ 						break;
+ 						
+ 					case "play":
+ 						play();
+ 						break;
+ 						
+ 					case "helpWin":
+ 						knightStory();
  						break;
 				}
 		 			
@@ -452,6 +521,15 @@ public class Game {
 	 							giveUp();
 	 							break;
 	 					}
+		 				case "help":
+		 					switch(yourChoice){
+		 					case "c1":
+		 						knightStory();
+		 						break;
+		 					case "c2":
+		 						dogFight();
+		 						break;
+		 					}
 		 			}	
 		 	}
 	 }
