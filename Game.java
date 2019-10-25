@@ -15,23 +15,24 @@ public class Game {
 	
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
+	JPanel titleNamePanel, startOverPanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
 	JLabel titleName, hpLabelp, weaponLabelp,hpLabele, weaponLabele,enemyLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton,howToButton,nextButton,choice1,choice2,choice3,choice4;
+	JButton startButton,howToButton,nextButton,choice1,choice2,choice3,choice4,startOverButton;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont=new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea;
 	String position;
-	Player p1 = new Player();
-	Enemy e = new Enemy();
+	Player p1 = new Player();//player object
+	Enemy e = new Enemy();//enemy object
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	howToScreenHandler howToHandler = new howToScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
 	choiceButtonHandler choiceHandler = new choiceButtonHandler();
 	nextButtonHandler nextHandler = new nextButtonHandler();
+	startOverScreenHandler startOverHandler = new startOverScreenHandler();
 	
 	 public static void main(String[] args){
 		new Game();
@@ -322,6 +323,7 @@ public class Game {
 		 mainTextPanel.setBounds(100,100,600,175);
 		 mainTextPanel.add(mainTextArea);
 		 
+		 p1.setWeapon("Wooden Sword");
 		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
 		 
 		 choiceButtonPanel.setVisible(false);
@@ -405,11 +407,15 @@ public class Game {
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
 				 mainTextPanel.setVisible(true);
-				 position="knightStory";
+				
 				 position="helpWin";
 				 
+				 p1.setWeapon("Silver Sword");
+				 weaponLabelp.setText(p1.getWeapon());
+				
 		 }
 		 else{
+			 choiceButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume+"Welp a deal is a deal right?");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
@@ -423,12 +429,179 @@ public class Game {
 		 
 	 }
 	 
+	 public void dogFightBegin(){
+		 nextButtonPanel.setVisible(true);
+		 choiceButtonPanel.setVisible(false);
+		 mainTextPanel.remove(mainTextArea);
+		 mainTextArea.setText("\"I do not like deal breakers and neither does my dog\" syas the old man\n"
+		 		+ "A big dog emerges from behind the tree and barks very loudly and shows off his big sharp teeth");
+			 mainTextPanel.setBounds(100,100,600,150);
+			 mainTextPanel.add(mainTextArea);
+			 mainTextPanel.setVisible(true);
+			 
+			 e.setHealth(30);
+			 position="dogFight";
+	 }
+	 
 	 public void dogFight(){
+		
+		 titleNamePanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 enemyPanel.setVisible(true);
 		 
+		 e.setHealth(e.getHealth()-p1.weapond());//when player attacks
+		 p1.setHealth(p1.getHealth()-e.weapond());//when enemy attacks
+		 mainTextPanel.setVisible(true);
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 if(e.getHealth()>0){
+			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+		 		+ "The dog did "+ e.weapond() + " damage to you");
+			 hpLabele.setText("HP: "+e.getHealth());
+			 hpLabelp.setText("HP: "+p1.getHealth());
+			 mainTextPanel.setBounds(100,100,600,150);
+			 mainTextPanel.add(mainTextArea);
+			 
+		 }
+		 else{
+			 	 choiceButtonPanel.setVisible(false);
+				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 		+ "The dog has been defeated");
+				 hpLabele.setText("HP: "+0);
+				 hpLabelp.setText("HP: "+p1.getHealth());
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea); 
+				 
+				 nextButton = new JButton("==>");
+				 nextButton.setBackground(Color.black);
+				 nextButton.setForeground(Color.white);
+				 nextButton.setFont(buttonFont);
+				 nextButton.addActionListener(nextHandler);
+				 nextButton.setFocusPainted(false);
+				 
+				 nextButtonPanel = new JPanel();
+				 nextButtonPanel.setBounds(300,400,150,65);
+				 nextButtonPanel.setBackground(Color.black);
+				 nextButtonPanel.setVisible(true);
+				 nextButtonPanel.add(nextButton);
+				 con.add(nextButtonPanel);
+				 
+				 position="continue";
+				 
+				 
+		 }
+	 }
+	 
+	 public void ogreFight(){
+		 
+		 titleNamePanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 enemyPanel.setVisible(true);
+		 
+		 e.setHealth(e.getHealth()-p1.weapond());//when player attacks
+		 p1.setHealth(p1.getHealth()-e.weapond());//when enemy attacks
+		 mainTextPanel.setVisible(true);
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 if(p1.getHealth()<=0){
+			 hpLabelp.setText("HP: "+p1.getHealth());
+			 lose();
+		 }
+		 else if(e.getHealth()>0){
+			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+		 		+ "The bandit did "+ e.weapond() + " damage to you");
+			 hpLabele.setText("HP: "+e.getHealth());
+			 hpLabelp.setText("HP: "+p1.getHealth());
+			 mainTextPanel.setBounds(100,100,600,150);
+			 mainTextPanel.add(mainTextArea);
+		 }
+		 else{
+			 	 choiceButtonPanel.setVisible(false);
+				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 		+ "The ogre has been defeated");
+				 hpLabele.setText("HP: "+0);
+				 hpLabelp.setText("HP: "+p1.getHealth());
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea); 
+				 
+				 nextButton = new JButton("==>");
+				 nextButton.setBackground(Color.black);
+				 nextButton.setForeground(Color.white);
+				 nextButton.setFont(buttonFont);
+				 nextButton.addActionListener(nextHandler);
+				 nextButton.setFocusPainted(false);
+				 
+				 nextButtonPanel = new JPanel();
+				 nextButtonPanel.setBounds(300,400,150,65);
+				 nextButtonPanel.setBackground(Color.black);
+				 nextButtonPanel.setVisible(true);
+				 nextButtonPanel.add(nextButton);
+				 con.add(nextButtonPanel);
+				 
+				 position ="ogreWin";
+		 }
 	 }
 	 
 	 public void knightStory(){
+		
+		 enemyPanel.setVisible(false);
+		 nextButtonPanel.setVisible(true);
+		 choiceButtonPanel.setVisible(false);
+		 mainTextPanel.setVisible(false);
 		 
+		 mainTextPanel.remove(mainTextArea);
+		 
+		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your knighthood has reminded me of mine"
+			 		+ "with a fellow knight. This sword was my friend's he never made it past the ogre up ahead. Will you"
+			 		+ "please take this sword and bring it to the knighthood\"");
+				 mainTextPanel.setBounds(100,100,600,150);
+				 mainTextPanel.add(mainTextArea);
+				 mainTextPanel.setVisible(true);
+				  
+		position="continue";
+	 }
+	 
+	 public void lose(){
+		 nextButtonPanel.setVisible(false);
+		 choiceButtonPanel.setVisible(false);
+		 enemyPanel.setVisible(false);
+		 choiceButtonPanel.setVisible(false);
+		 nextButtonPanel.setVisible(false);
+		 titleNamePanel.setVisible(true);
+		 mainTextPanel.setVisible(false);
+		 startButtonPanel.setVisible(false);
+		 howToPanel.setVisible(false);
+		 
+		 titleNamePanel.remove(titleName);
+		 
+		 titleNamePanel.setBounds(100,100,600,150);
+		 titleNamePanel.setBackground(Color.black);//color of background
+		 titleName=new JLabel("You Died");
+		 titleName.setForeground(Color.white);//color of text
+		 titleName.setFont(titleFont);
+		 titleNamePanel.add(titleName);
+		 
+		 startOverPanel = new JPanel();
+		 startOverPanel.setBounds(300,400,150,65);
+		 startOverPanel.setBackground(Color.black);
+		 
+		 startOverButton = new JButton("START OVER");
+		 startOverButton.setBackground(Color.black);
+		 startOverButton.setForeground(Color.white);
+		 startOverButton.setFont(buttonFont);
+		 startOverButton.addActionListener(startOverHandler);
+		 startOverButton.setFocusPainted(false);
+		
+	 }
+	 
+	 public class startOverScreenHandler implements ActionListener{
+		 	public void actionPerformed(ActionEvent event){
+		 		new Game();
+		 	}
 	 }
 	 
 	 public class nextButtonHandler implements ActionListener{
@@ -472,8 +645,49 @@ public class Game {
  						break;
  						
  					case "helpWin":
+ 						 knightStory();
+ 						break;
+ 						
+ 					case "dogFight":
+ 						dogFight();
+ 						break;
+ 						
+ 					case "knightstory":
  						knightStory();
  						break;
+ 						
+ 					case "continue":
+ 						mainTextArea.setText("You continue on until you find a tower. You walk in "
+ 								+ "and there is an ogre standing there with a big battle axe and he charges straight at you.");
+ 							 mainTextPanel.setBounds(100,100,600,150);
+ 							 mainTextPanel.add(mainTextArea);
+ 							 mainTextPanel.setVisible(true);
+ 							  
+ 							 position="ogreFight";
+ 							e.setHealth(40);
+ 							 break;
+ 							 
+ 					case "ogreFight":
+ 						
+ 						ogreFight();
+ 						break;
+ 						
+ 					case "ogreWin":
+ 						mainTextArea.setText("You Now your journey is finished and you travel to Yullie Town");
+ 							 mainTextPanel.setBounds(100,100,600,150);
+ 							 mainTextPanel.add(mainTextArea);
+ 							 mainTextPanel.setVisible(true);
+ 						position="town";
+ 					break;
+ 					
+ 					case "town":
+ 						mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because"
+ 								+ "you have just finihed your knighthood. Congratulations!!");
+						 mainTextPanel.setBounds(100,100,600,150);
+						 mainTextPanel.add(mainTextArea);
+						 mainTextPanel.setVisible(true);
+					position="town";
+ 					break;
 				}
 		 			
 		 	}
@@ -521,15 +735,17 @@ public class Game {
 	 							giveUp();
 	 							break;
 	 					}
-		 				case "help":
+		 				break;
+		 				case "helpLost":
 		 					switch(yourChoice){
 		 					case "c1":
 		 						knightStory();
 		 						break;
 		 					case "c2":
-		 						dogFight();
+		 						dogFightBegin();
 		 						break;
 		 					}
+		 					break;
 		 			}	
 		 	}
 	 }
