@@ -18,4 +18,20 @@ public class Player {
 	public String getWeapon(){
 		return weapon;
 	}
+	
+	public int weapond(){//sets weapon damage based on current weapon
+		int weapond = 0;
+		switch(this.weapon){
+		case "Wooden Sword":
+			weapond=5;
+			break;
+		case "Bronze Sword":
+			weapond=10;
+			break;
+		case "Silver Sword":
+			weapond=15;
+			break;
+		}
+		return weapond;
+	}
 }

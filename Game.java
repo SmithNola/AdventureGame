@@ -15,10 +15,10 @@ public class Game {
 	
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startOverPanel, startButtonPanel, howToPanel,mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
+	JPanel titleNamePanel, startOverPanel, startButtonPanel, mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
 	JLabel titleName, hpLabelp, weaponLabelp,hpLabele, weaponLabele,enemyLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton,howToButton,nextButton,choice1,choice2,choice3,choice4,startOverButton;
+	JButton startButton,nextButton,choice1,choice2,choice3,choice4,startOverButton;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont=new Font("Times New Roman", Font.PLAIN, 22);
@@ -28,7 +28,6 @@ public class Game {
 	Enemy e = new Enemy();//enemy object
 	
 	startScreenHandler startHandler = new startScreenHandler();
-	howToScreenHandler howToHandler = new howToScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
 	choiceButtonHandler choiceHandler = new choiceButtonHandler();
 	nextButtonHandler nextHandler = new nextButtonHandler();
@@ -51,20 +50,9 @@ public class Game {
 		 titleNamePanel= new JPanel();
 		 titleNamePanel.setBounds(100,100,600,150);
 		 titleNamePanel.setBackground(Color.black);//color of background
-		 titleName=new JLabel("A Knight's Quest");
+		 titleName=new JLabel("A Knight's Journey");
 		 titleName.setForeground(Color.white);//color of text
 		 titleName.setFont(titleFont);
-		 
-		 howToPanel = new JPanel();
-		 howToPanel.setBounds(280,345,200,100);
-		 howToPanel.setBackground(Color.black);
-		 
-		 howToButton = new JButton("How To Play");
-		 howToButton.setBackground(Color.black);
-		 howToButton.setForeground(Color.white);
-		 howToButton.setFont(buttonFont);
-		 howToButton.addActionListener(howToHandler);
-		 howToButton.setFocusPainted(false);
 		 
 		 startButton = new JButton("START");
 		 startButton.setBackground(Color.black);
@@ -79,7 +67,6 @@ public class Game {
 		 
 		 titleNamePanel.add(titleName);
 		 startButtonPanel.add(startButton);
-		 howToPanel.add(howToButton);
 		 
 		 mainTextPanel = new JPanel();
 		 mainTextPanel.setBackground(Color.black);
@@ -90,7 +77,6 @@ public class Game {
 		 con.add(mainTextPanel);
 		 con.add(titleNamePanel);
 		 con.add(startButtonPanel);
-		 con.add(howToPanel);
 		 window.setVisible(true);
 		
 	 }
@@ -98,7 +84,6 @@ public class Game {
 	 public void createGameScreen(){
 		 mainTextPanel.setVisible(true);
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 
 		 mainTextPanel.setBounds(50,50,700,400);
 		 mainTextPanel.remove(mainTextArea);
@@ -133,7 +118,6 @@ public class Game {
 	 
 	 public void howToScreen(){
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(true);
 		 
 		 mainTextPanel.setBounds(50,50,700,400);
@@ -173,7 +157,6 @@ public class Game {
 	 
 	 public void mainGame(){
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 
@@ -262,7 +245,6 @@ public class Game {
 	 public void attack(){
 		 position="attack";
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 
@@ -308,7 +290,6 @@ public class Game {
 	 
 	 public void giveUp(){
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 
@@ -369,8 +350,8 @@ public class Game {
 		 mainTextPanel.setVisible(false);
 		 
 		 mainTextArea.setText("\"Hello, would you mind spend some time with an old man  to pass some time. "
-		 		+ "I have some dice if you win I will give you the sword\n"
-		 		+ "If I win you have to help me with a task.\" says the old man\n"
+		 		+ "I have some dice if you win I will give  you the sword\n"
+		 		+ "If I win you have to help me with a task.\" says the old man.\n"
 		 		+ "You decide to play the game so you can get the sword");
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
@@ -384,6 +365,7 @@ public class Game {
 		 enemyPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 nextButtonPanel.setVisible(false);
+		 
 		 Random rand = new Random();
 		 int nump = 0;
 		 int nume = 0;
@@ -416,7 +398,7 @@ public class Game {
 		 }
 		 else{
 			 choiceButtonPanel.setVisible(true);
-			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume+"Welp a deal is a deal right?");
+			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume+".\nWelp a deal is a deal right?");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
 				 mainTextPanel.setVisible(true);
@@ -446,7 +428,6 @@ public class Game {
 	 public void dogFight(){
 		
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(true);
@@ -497,7 +478,6 @@ public class Game {
 	 public void ogreFight(){
 		 
 		 titleNamePanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(true);
@@ -513,7 +493,7 @@ public class Game {
 		 }
 		 else if(e.getHealth()>0){
 			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
-		 		+ "The bandit did "+ e.weapond() + " damage to you");
+		 		+ "The ogre did "+ e.weapond() + " damage to you");
 			 hpLabele.setText("HP: "+e.getHealth());
 			 hpLabelp.setText("HP: "+p1.getHealth());
 			 mainTextPanel.setBounds(100,100,600,150);
@@ -555,9 +535,9 @@ public class Game {
 		 
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your knighthood has reminded me of mine"
-			 		+ "with a fellow knight. This sword was my friend's he never made it past the ogre up ahead. Will you"
-			 		+ "please take this sword and bring it to the knighthood\"");
+		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your knighthood has reminded me of mine "
+			 		+ "with a fellow knight. This \nsword was my friend's he never made it past the ogre up ahead. Will you"
+			 		+ " please take this sword and bring it to the \nknighthood\"");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
 				 mainTextPanel.setVisible(true);
@@ -574,7 +554,6 @@ public class Game {
 		 titleNamePanel.setVisible(true);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
-		 howToPanel.setVisible(false);
 		 
 		 titleNamePanel.remove(titleName);
 		 
@@ -585,17 +564,20 @@ public class Game {
 		 titleName.setFont(titleFont);
 		 titleNamePanel.add(titleName);
 		 
-		 startOverPanel = new JPanel();
-		 startOverPanel.setBounds(300,400,150,65);
-		 startOverPanel.setBackground(Color.black);
-		 
 		 startOverButton = new JButton("START OVER");
 		 startOverButton.setBackground(Color.black);
 		 startOverButton.setForeground(Color.white);
 		 startOverButton.setFont(buttonFont);
 		 startOverButton.addActionListener(startOverHandler);
 		 startOverButton.setFocusPainted(false);
-		
+		 
+		 startOverPanel = new JPanel();
+		 startOverPanel.setBounds(300,400,150,65);
+		 startOverPanel.setBackground(Color.black);
+		 startOverPanel.setVisible(true);
+		 startOverPanel.add(startOverButton);
+		 con.add(startButtonPanel);
+	
 	 }
 	 
 	 public class startOverScreenHandler implements ActionListener{
@@ -658,7 +640,7 @@ public class Game {
  						
  					case "continue":
  						mainTextArea.setText("You continue on until you find a tower. You walk in "
- 								+ "and there is an ogre standing there with a big battle axe and he charges straight at you.");
+ 								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
  							 mainTextPanel.setBounds(100,100,600,150);
  							 mainTextPanel.add(mainTextArea);
  							 mainTextPanel.setVisible(true);
@@ -668,12 +650,11 @@ public class Game {
  							 break;
  							 
  					case "ogreFight":
- 						
  						ogreFight();
  						break;
  						
  					case "ogreWin":
- 						mainTextArea.setText("You Now your journey is finished and you travel to Yullie Town");
+ 						mainTextArea.setText("Now your journey is finished and you travel to Yullie Town");
  							 mainTextPanel.setBounds(100,100,600,150);
  							 mainTextPanel.add(mainTextArea);
  							 mainTextPanel.setVisible(true);
@@ -681,21 +662,29 @@ public class Game {
  					break;
  					
  					case "town":
- 						mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because"
- 								+ "you have just finihed your knighthood. Congratulations!!");
+ 						 nextButtonPanel.setVisible(false);
+ 						 mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because"
+ 								+ " you have just finihed your knighthood. \nCongratulations!!");
 						 mainTextPanel.setBounds(100,100,600,150);
 						 mainTextPanel.add(mainTextArea);
 						 mainTextPanel.setVisible(true);
-					position="town";
+						 
+						 startOverButton = new JButton("START OVER");
+						 startOverButton.setBackground(Color.black);
+						 startOverButton.setForeground(Color.white);
+						 startOverButton.setFont(buttonFont);
+						 startOverButton.addActionListener(startOverHandler);
+						 startOverButton.setFocusPainted(false);
+						 
+						 startOverPanel = new JPanel();
+						 startOverPanel.setBounds(300,400,150,65);
+						 startOverPanel.setBackground(Color.black);
+						 startOverPanel.setVisible(true);
+						 startOverPanel.add(startOverButton);
+						 con.add(startButtonPanel);
  					break;
 				}
 		 			
-		 	}
-	 }
-	 
-	 public class howToScreenHandler implements ActionListener{
-		 	public void actionPerformed(ActionEvent event){
-		 		howToScreen();
 		 	}
 	 }
 	 
