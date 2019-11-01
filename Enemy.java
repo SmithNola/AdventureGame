@@ -33,9 +33,6 @@ public class Enemy {
 		case "Wooden Sword":
 			weapond=5;
 			break;
-		case "Bronze Sword":
-			weapond=10;
-			break;
 		case "Teeth":
 			weapond=13;
 			break;

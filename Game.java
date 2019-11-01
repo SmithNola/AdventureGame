@@ -81,19 +81,17 @@ public class Game {
 		
 	 }
 	 
-	 public void createGameScreen(){
+	 public void createGameScreen(){//first screen
 		 mainTextPanel.setVisible(true);
 		 titleNamePanel.setVisible(false);
 		 
 		 mainTextPanel.setBounds(50,50,700,400);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea = new JTextArea("You wake up to a loud banging at your bedroom door.\"Knight please wake up\""
-		 		+ " You open up the door and before you can speak the servant hands you a letter with the king's seal on it.\n\n"
-		 		+ "Knight I am tasking you with something dear. Rescue my daughter,  Princess Marylett. She has been kidnapped by"
-		 		+ " an unknown assilent.  All they said is that she will be held by volcano Timbitti. I am giving  you $20 and 1 medium "
-		 		+ "potion as that is all I have on me before the   Queen and I go into hiding. I will try and send letters to you to towns "
-		 		+ "throughout your journey. Please Knight bring my daughter back        safely.\n\nAnd off you went on your journey.");
+		 mainTextArea = new JTextArea("Every new knight has to go through a knighthood "
+		 		+ "where they adventure out into the world on their own, so you set off"
+		 		+ "to begin yoyur journey out of your own kingdom you have lived in your"
+		 		+ " entire life until you reach your knighthood town, Yullie.");
 		 mainTextArea.setBounds(50,50,700,400);
 		 mainTextArea.setBackground(Color.black);
 		 mainTextArea.setForeground(Color.white);
@@ -116,46 +114,7 @@ public class Game {
 		 
 	 }
 	 
-	 public void howToScreen(){
-		 titleNamePanel.setVisible(false);
-		 mainTextPanel.setVisible(true);
-		 
-		 mainTextPanel.setBounds(50,50,700,400);
-		 con.add(mainTextPanel);
-		 
-		 mainTextArea = new JTextArea("Luck -> your chances of leaving a fight out of 6\n"
-		 		+ "HP -> is your health it is displayed as current health/total health\n"
-		 		+ "Weapon -> you will only be able to hold onto one weapon at a time\n"
-		 		+ "Money -> is your total amount you are able to spend\n"
-		 		+ "Placement -> your position on the map\n\n"
-		 		+ "You will a dice of six each turn and move forward\n\n"
-		 		+ "If you roll before a town and roll pass it will will have the option to go to the town\n\n"
-		 		+ "After leaving a town and your roll is under 4 you will have the option to go back to town or continue forward.\n\n"
-		 		+ "You win after you beat the final boss at the final placement.");
-		 mainTextArea.setBounds(50,50,700,400);
-		 mainTextArea.setBackground(Color.black);
-		 mainTextArea.setForeground(Color.white);
-		 mainTextArea.setFont(textFont);
-		 mainTextArea.setLineWrap(true);
-		 mainTextArea.setEditable(false); 
-		 mainTextPanel.add(mainTextArea);
-		 
-		 startButtonPanel.remove(startButton);
-		 
-		 startButton = new JButton("Start");
-		 startButton.setBackground(Color.black);
-		 startButton.setForeground(Color.white);
-		 startButton.setFont(buttonFont);
-		 startButton.addActionListener(startHandler);
-		 startButton.setFocusPainted(false);
-		 
-		 startButtonPanel.setBounds(300,450,100,100);
-		 startButtonPanel.add(startButton);
-		 
-		 
-	 }
-	 
-	 public void mainGame(){
+	 public void mainGame(){//first  battle scene
 		 titleNamePanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
@@ -221,7 +180,7 @@ public class Game {
 		 weaponLabele.setForeground(Color.white);
 		 enemyPanel.add(weaponLabele);
 		 
-		 playerSetup();
+		 playerSetup();//sets up plater stats
 		 
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
@@ -253,11 +212,11 @@ public class Game {
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 if(e.getHealth()>0){
+		 if(e.getHealth()>0){//if enemy has not been defeated
 			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
 		 		+ "The bandit did "+ e.weapond() + " damage to you");
-			 hpLabele.setText("HP: "+e.getHealth());
-			 hpLabelp.setText("HP: "+p1.getHealth());
+			 hpLabele.setText("HP: "+e.getHealth());//shows new stats
+			 hpLabelp.setText("HP: "+p1.getHealth());//shows new stats
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 		 }
@@ -370,9 +329,10 @@ public class Game {
 		 int nump = 0;
 		 int nume = 0;
 		
-		 while(nump==nume){
+		 while(nump==nume){//rerolls if user and old man roll the same number
 			 nump = rand.nextInt(6);
 			 nume= rand.nextInt(6);
+			 //there is not 0 on dice so I change it to a 6 instead
 			 if(nump==0){
 				 nump=6;
 			 }
@@ -381,7 +341,7 @@ public class Game {
 			 }
 		 }
 		 
-		 if(nump>nume){
+		 if(nump>nume){//if play wins
 			 nextButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume
 					 +"/You win and the old man easily pulls out the sword from the tree and hands you the sword\n"
@@ -396,7 +356,7 @@ public class Game {
 				 weaponLabelp.setText(p1.getWeapon());
 				
 		 }
-		 else{
+		 else{//if player loses
 			 choiceButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume+".\nWelp a deal is a deal right?");
 				 mainTextPanel.setBounds(100,100,600,150);
@@ -489,6 +449,7 @@ public class Game {
 		 
 		 if(p1.getHealth()<=0){
 			 hpLabelp.setText("HP: "+p1.getHealth());
+			 nextButtonPanel.setVisible(false);
 			 lose();
 		 }
 		 else if(e.getHealth()>0){
@@ -545,7 +506,7 @@ public class Game {
 		position="continue";
 	 }
 	 
-	 public void lose(){
+	 public void lose(){//if player dies
 		 nextButtonPanel.setVisible(false);
 		 choiceButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(false);
@@ -576,7 +537,9 @@ public class Game {
 		 startOverPanel.setBackground(Color.black);
 		 startOverPanel.setVisible(true);
 		 startOverPanel.add(startOverButton);
-		 con.add(startButtonPanel);
+		 
+		 position="";
+		
 	
 	 }
 	 
@@ -645,8 +608,8 @@ public class Game {
  							 mainTextPanel.add(mainTextArea);
  							 mainTextPanel.setVisible(true);
  							  
- 							 position="ogreFight";
  							e.setHealth(40);
+ 							 position="ogreFight";
  							 break;
  							 
  					case "ogreFight":
@@ -682,6 +645,7 @@ public class Game {
 						 startOverPanel.setVisible(true);
 						 startOverPanel.add(startOverButton);
 						 con.add(startButtonPanel);
+						
  					break;
 				}
 		 			
