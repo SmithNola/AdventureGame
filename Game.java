@@ -89,9 +89,9 @@ public class Game {
 		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea = new JTextArea("Every new knight has to go through a knighthood "
-		 		+ "where they adventure out into the world on their own, so you set off"
-		 		+ "to begin yoyur journey out of your own kingdom you have lived in your"
-		 		+ " entire life until you reach your knighthood town, Yullie.");
+		 		+ "where they\nadventure out into the world on their own, so you set off "
+		 		+ "to begin\nyour journey out of your own kingdom you have lived in your"
+		 		+ " entire\nlife untilyou reach your knighthood town, Yullie.");
 		 mainTextArea.setBounds(50,50,700,400);
 		 mainTextArea.setBackground(Color.black);
 		 mainTextArea.setForeground(Color.white);
@@ -309,7 +309,7 @@ public class Game {
 		 mainTextPanel.setVisible(false);
 		 
 		 mainTextArea.setText("\"Hello, would you mind spend some time with an old man  to pass some time. "
-		 		+ "I have some dice if you win I will give  you the sword\n"
+		 		+ "I have some dice if you win I will give\nyou the sword\n"
 		 		+ "If I win you have to help me with a task.\" says the old man.\n"
 		 		+ "You decide to play the game so you can get the sword");
 		 mainTextPanel.setBounds(100,100,600,150);
@@ -344,7 +344,7 @@ public class Game {
 		 if(nump>nume){//if play wins
 			 nextButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume
-					 +"/You win and the old man easily pulls out the sword from the tree and hands you the sword\n"
+					 +"/nYou win and the old man easily\npulls out the sword from the tree and hands you the sword\n"
 					 + "\"I know we had a deal anyway but would you mind helping me still\" the old man askes");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
@@ -375,8 +375,8 @@ public class Game {
 		 nextButtonPanel.setVisible(true);
 		 choiceButtonPanel.setVisible(false);
 		 mainTextPanel.remove(mainTextArea);
-		 mainTextArea.setText("\"I do not like deal breakers and neither does my dog\" syas the old man\n"
-		 		+ "A big dog emerges from behind the tree and barks very loudly and shows off his big sharp teeth");
+		 mainTextArea.setText("\"I do not like deal breakers and neither does my dog\" says\nthe old man\n"
+		 		+ "A big dog emerges from behind the tree and barks very\nloudly and shows off his big sharp teeth");
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 			 mainTextPanel.setVisible(true);
@@ -415,20 +415,6 @@ public class Game {
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
-				 nextButton = new JButton("==>");
-				 nextButton.setBackground(Color.black);
-				 nextButton.setForeground(Color.white);
-				 nextButton.setFont(buttonFont);
-				 nextButton.addActionListener(nextHandler);
-				 nextButton.setFocusPainted(false);
-				 
-				 nextButtonPanel = new JPanel();
-				 nextButtonPanel.setBounds(300,400,150,65);
-				 nextButtonPanel.setBackground(Color.black);
-				 nextButtonPanel.setVisible(true);
-				 nextButtonPanel.add(nextButton);
-				 con.add(nextButtonPanel);
-				 
 				 position="continue";
 				 
 				 
@@ -451,6 +437,7 @@ public class Game {
 			 hpLabelp.setText("HP: "+p1.getHealth());
 			 nextButtonPanel.setVisible(false);
 			 lose();
+			 position=" ";
 		 }
 		 else if(e.getHealth()>0){
 			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
@@ -469,20 +456,6 @@ public class Game {
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
-				 nextButton = new JButton("==>");
-				 nextButton.setBackground(Color.black);
-				 nextButton.setForeground(Color.white);
-				 nextButton.setFont(buttonFont);
-				 nextButton.addActionListener(nextHandler);
-				 nextButton.setFocusPainted(false);
-				 
-				 nextButtonPanel = new JPanel();
-				 nextButtonPanel.setBounds(300,400,150,65);
-				 nextButtonPanel.setBackground(Color.black);
-				 nextButtonPanel.setVisible(true);
-				 nextButtonPanel.add(nextButton);
-				 con.add(nextButtonPanel);
-				 
 				 position ="ogreWin";
 		 }
 	 }
@@ -496,8 +469,8 @@ public class Game {
 		 
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your knighthood has reminded me of mine "
-			 		+ "with a fellow knight. This \nsword was my friend's he never made it past the ogre up ahead. Will you"
+		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your\nknighthood has reminded me of mine "
+			 		+ "with a fellow knight. This \nsword was my friend's he never made it past the ogre up\nahead. Will you"
 			 		+ " please take this sword and bring it to the \nknighthood\"");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
@@ -512,9 +485,8 @@ public class Game {
 		 enemyPanel.setVisible(false);
 		 choiceButtonPanel.setVisible(false);
 		 nextButtonPanel.setVisible(false);
-		 titleNamePanel.setVisible(true);
 		 mainTextPanel.setVisible(false);
-		 startButtonPanel.setVisible(false);
+		 titleNamePanel.setVisible(true);
 		 
 		 titleNamePanel.remove(titleName);
 		 
@@ -533,13 +505,12 @@ public class Game {
 		 startOverButton.setFocusPainted(false);
 		 
 		 startOverPanel = new JPanel();
-		 startOverPanel.setBounds(300,400,150,65);
+		 startOverPanel.setBounds(300,400,225,65);
 		 startOverPanel.setBackground(Color.black);
 		 startOverPanel.setVisible(true);
 		 startOverPanel.add(startOverButton);
-		 
-		 position="";
-		
+		 con.add(startOverPanel);
+		 position=" "; 
 	
 	 }
 	 
@@ -625,7 +596,9 @@ public class Game {
  					break;
  					
  					case "town":
+ 						 nextButton.setVisible(false);
  						 nextButtonPanel.setVisible(false);
+ 						
  						 mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because"
  								+ " you have just finihed your knighthood. \nCongratulations!!");
 						 mainTextPanel.setBounds(100,100,600,150);
@@ -640,11 +613,12 @@ public class Game {
 						 startOverButton.setFocusPainted(false);
 						 
 						 startOverPanel = new JPanel();
-						 startOverPanel.setBounds(300,400,150,65);
+						 startOverPanel.setBounds(300,400,225,65);
 						 startOverPanel.setBackground(Color.black);
 						 startOverPanel.setVisible(true);
 						 startOverPanel.add(startOverButton);
-						 con.add(startButtonPanel);
+						 con.add(startOverPanel);
+						 position=" "; 
 						
  					break;
 				}
