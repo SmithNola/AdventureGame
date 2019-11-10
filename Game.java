@@ -44,9 +44,9 @@ public class Game {
 		 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 window.getContentPane().setBackground(Color.black);
 		 window.setLayout(null);
-		 window.setVisible(true);
 		 con=window.getContentPane();
 		 
+		 //Title Screen
 		 titleNamePanel= new JPanel();
 		 titleNamePanel.setBounds(100,100,600,150);
 		 titleNamePanel.setBackground(Color.black);//color of background
@@ -111,37 +111,13 @@ public class Game {
 		 
 		 startButtonPanel.setBounds(175,450,400,100);
 		 startButtonPanel.add(startButton);
-		 
+		 con.add(startButtonPanel);
 	 }
 	 
 	 public void mainGame(){//first  battle scene
 		 titleNamePanel.setVisible(false);
-		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
-		 
-		 choiceButtonPanel = new JPanel();
-		 choiceButtonPanel.setBounds(250, 400, 300, 150);
-		 choiceButtonPanel.setBackground(Color.red);
-		 choiceButtonPanel.setLayout(new GridLayout(2,1));
-		 con.add(choiceButtonPanel);
-		 
-		 choice1=new JButton("Attack");
-		 choice1.setBackground(Color.black);
-		 choice1.setForeground(Color.white);
-		 choice1.setFont(choiceFont);
-		 choiceButtonPanel.add(choice1);
-		 choice1.setFocusPainted(false);
-		 choice1.addActionListener(choiceHandler);
-		 choice1.setActionCommand("c1");
-		 
-		 choice2=new JButton("Give him all your stuff");
-		 choice2.setBackground(Color.black);
-		 choice2.setForeground(Color.white);
-		 choice2.setFont(choiceFont);
-		 choiceButtonPanel.add(choice2);
-		 choice2.setFocusPainted(false);
-		 choice2.addActionListener(choiceHandler);
-		 choice2.setActionCommand("c2");
+		 mainTextPanel.setVisible(false);
 		 
 		 playerPanel = new JPanel();
 		 playerPanel.setBounds(100,10,600,50);
@@ -197,7 +173,34 @@ public class Game {
 		 
 		 mainTextPanel.setBounds(100,100,600,150);
 		 mainTextPanel.add(mainTextArea);
-		 position = "start";
+		 
+		 choiceButtonPanel = new JPanel();
+		 choiceButtonPanel.setBounds(250, 400, 300, 150);
+		 choiceButtonPanel.setBackground(Color.red);
+		 choiceButtonPanel.setLayout(new GridLayout(2,1));
+		 con.add(choiceButtonPanel);
+		 
+		 choice1=new JButton("Attack");
+		 choice1.setBackground(Color.black);
+		 choice1.setForeground(Color.white);
+		 choice1.setFont(choiceFont);
+		 
+		 choice1.setFocusPainted(false);
+		 choice1.addActionListener(choiceHandler);
+		 choice1.setActionCommand("c1");
+		 choiceButtonPanel.add(choice1);
+		 
+		 choice2=new JButton("Give him all your stuff");
+		 choice2.setBackground(Color.black);
+		 choice2.setForeground(Color.white);
+		 choice2.setFont(choiceFont);
+		 
+		 choice2.setFocusPainted(false);
+		 choice2.addActionListener(choiceHandler);
+		 choice2.setActionCommand("c2");
+		 choiceButtonPanel.add(choice2);
+		 
+		 position = "attack";
 		 
 	 }
 	 
@@ -619,7 +622,6 @@ public class Game {
 						 startOverPanel.add(startOverButton);
 						 con.add(startOverPanel);
 						 position=" "; 
-						
  					break;
 				}
 		 			
@@ -653,16 +655,7 @@ public class Game {
 		 							break;
 		 					}
 		 					break;
-		 				case "start":
-		 					switch(yourChoice){
-	 						case "c1":
-	 							attack();
-	 							break;
-	 						case "c2":
-	 							giveUp();
-	 							break;
-	 					}
-		 				break;
+		 			
 		 				case "helpLost":
 		 					switch(yourChoice){
 		 					case "c1":
@@ -678,4 +671,3 @@ public class Game {
 	 }
 	 
 }
-
