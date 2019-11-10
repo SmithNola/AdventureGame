@@ -371,7 +371,6 @@ public class Game {
 			choice2.setText("Break Deal");
 		 }
 		 
-		 
 	 }
 	 
 	 public void dogFightBegin(){
