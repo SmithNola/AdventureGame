@@ -393,6 +393,7 @@ public class Game {
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(true);
+		 choiceButtonPanel.setVisible(true);
 		 
 		 e.setHealth(e.getHealth()-p1.weapond());//when player attacks
 		 p1.setHealth(p1.getHealth()-e.weapond());//when enemy attacks
@@ -400,12 +401,16 @@ public class Game {
 		 mainTextPanel.remove(mainTextArea);
 		 
 		 if(e.getHealth()>0){
+			 position="dogfight";
 			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
 		 		+ "The dog did "+ e.weapond() + " damage to you");
 			 hpLabele.setText("HP: "+e.getHealth());
 			 hpLabelp.setText("HP: "+p1.getHealth());
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
+			 
+			 choice1.setText("Attack");
+			 choice2.setText("Give In");
 			 
 		 }
 		 else{
@@ -418,8 +423,7 @@ public class Game {
 				 mainTextPanel.add(mainTextArea); 
 				 
 				 position="continue";
-				 
-				 
+				
 		 }
 	 }
 	 
@@ -651,6 +655,17 @@ public class Game {
 		 							break;
 		 						case "c2":
 		 							giveUp();
+		 							break;
+		 					}
+		 					break;
+		 					
+		 				case "dogfight":
+		 					switch(yourChoice){
+		 						case "c1":
+		 							dogFight();
+		 							break;
+		 						case "c2":
+		 							knightStory();
 		 							break;
 		 					}
 		 					break;
