@@ -223,7 +223,6 @@ public class Game {
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 		 }else{
-			 	 choiceButtonPanel.setVisible(false);
 				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
 				 		+ "The bandit has been defeated");
 				 hpLabele.setText("HP: "+0);
@@ -231,19 +230,7 @@ public class Game {
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
-				 nextButton = new JButton("==>");
-				 nextButton.setBackground(Color.black);
-				 nextButton.setForeground(Color.white);
-				 nextButton.setFont(buttonFont);
-				 nextButton.addActionListener(nextHandler);
-				 nextButton.setFocusPainted(false);
-				 
-				 nextButtonPanel = new JPanel();
-				 nextButtonPanel.setBounds(300,400,150,65);
-				 nextButtonPanel.setBackground(Color.black);
-				 nextButtonPanel.setVisible(true);
-				 nextButtonPanel.add(nextButton);
-				 con.add(nextButtonPanel);
+				 nextPage();
 				 
 				 position ="fight1";
 		 }
@@ -267,21 +254,7 @@ public class Game {
 		 p1.setWeapon("Wooden Sword");
 		 weaponLabelp.setText("Weapon: "+p1.getWeapon());
 		 
-		 choiceButtonPanel.setVisible(false);
-		 
-		 nextButton = new JButton("==>");
-		 nextButton.setBackground(Color.black);
-		 nextButton.setForeground(Color.white);
-		 nextButton.setFont(buttonFont);
-		 nextButton.addActionListener(nextHandler);
-		 nextButton.setFocusPainted(false);
-		 
-		 nextButtonPanel = new JPanel();
-		 nextButtonPanel.setBounds(300,400,150,65);
-		 nextButtonPanel.setBackground(Color.black);
-		 nextButtonPanel.setVisible(true);
-		 nextButtonPanel.add(nextButton);
-		 con.add(nextButtonPanel);
+		 nextPage();
 		 
 		 position="bigTreeText";
 		 
@@ -294,9 +267,6 @@ public class Game {
 		 hpLabelp.setText("HP: "+p1.getHealth());
 		 
 		 e.setType("Bandit");
-		 e.setHealth(15);
-		 
-		 e.setWeapon("Wooden Sword");
 		 enemyLabel.setText(e.getType());
 		 weaponLabele.setText("Weapon: "+e.getWeapon());
 		 hpLabele.setText("HP: "+e.getHealth());
@@ -518,6 +488,24 @@ public class Game {
 	
 	 }
 	 
+	 public void nextPage(){
+		 choiceButtonPanel.setVisible(false);
+		 
+		 nextButton = new JButton("==>");
+		 nextButton.setBackground(Color.black);
+		 nextButton.setForeground(Color.white);
+		 nextButton.setFont(buttonFont);
+		 nextButton.addActionListener(nextHandler);
+		 nextButton.setFocusPainted(false);
+		 
+		 nextButtonPanel = new JPanel();
+		 nextButtonPanel.setBounds(300,400,150,65);
+		 nextButtonPanel.setBackground(Color.black);
+		 nextButtonPanel.setVisible(true);
+		 nextButtonPanel.add(nextButton);
+		 con.add(nextButtonPanel);
+	 }
+	 
 	 public class startOverScreenHandler implements ActionListener{
 		 	public void actionPerformed(ActionEvent event){
 		 		new Game();
@@ -583,7 +571,10 @@ public class Game {
  							 mainTextPanel.add(mainTextArea);
  							 mainTextPanel.setVisible(true);
  							  
- 							e.setHealth(40);
+ 							 e.setType("Ogre");
+ 							 enemyLabel.setText(e.getType());
+ 							 weaponLabele.setText("Weapon: "+e.getWeapon());
+ 							 hpLabele.setText("HP: "+e.getHealth());
  							 position="ogreFight";
  							 break;
  							 
@@ -624,8 +615,7 @@ public class Game {
 						 con.add(startOverPanel);
 						 position=" "; 
  					break;
-				}
-		 			
+				}	
 		 	}
 	 }
 	 
@@ -674,6 +664,10 @@ public class Game {
 		 						knightStory();
 		 						break;
 		 					case "c2":
+		 						 e.setType("Big Dog");
+		 						 enemyLabel.setText(e.getType());
+		 						 weaponLabele.setText("Weapon: "+e.getWeapon());
+		 						 hpLabele.setText("HP: "+e.getHealth());
 		 						dogFightBegin();
 		 						break;
 		 					}
@@ -681,5 +675,4 @@ public class Game {
 		 			}	
 		 	}
 	 }
-	 
 }
