@@ -1,7 +1,17 @@
+import java.util.Random; 
 public class Enemy {
 	private int health;
 	private String type;
 	private String weapon;
+	
+	public int getRand(int r){//generate random damage
+		Random rand = new Random();
+		int num = 0;
+		while(num == 0){
+			num = rand.nextInt(r+1);
+		}
+		return num;
+	}
 	
 	public void setHealth(int newHealth){
 		this.health=newHealth;
@@ -31,13 +41,13 @@ public class Enemy {
 		int weapond = 0;
 		switch(this.weapon){
 		case "Wooden Sword":
-			weapond=5;
+			weapond=getRand(5);
 			break;
 		case "Teeth":
-			weapond=13;
+			weapond=getRand(13);
 			break;
 		case "Axe":
-			weapond=20;
+			weapond=getRand(20);
 			break;
 		}
 		return weapond;
