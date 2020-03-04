@@ -222,8 +222,7 @@ public class Game {
 			 hpLabelp.setText("HP: "+p1.getHealth());//shows new stats
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
-		 }
-		 else{
+		 }else{
 			 	 choiceButtonPanel.setVisible(false);
 				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
 				 		+ "The bandit has been defeated");
@@ -258,8 +257,7 @@ public class Game {
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea.setText("The bandit takes all your stuff.\n"
-		 		+ "Wow a bronze sword now I can win more fights\n"
+		 mainTextArea.setText("The bandit takes all your stuff and says, \"Wow a bronze\nsword now I can win more fights.\"\n"
 		 		+ "The bandit throws his wooden sword to the ground and\nleaves with your stuff\n"
 		 		+ "You now continue on with your journey with only a\nwooden sword.");
 		 
@@ -347,7 +345,7 @@ public class Game {
 		 if(nump>nume){//if play wins
 			 nextButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a "+nume
-					 +"/nYou win and the old man easily\npulls out the sword from the tree and hands you the sword\n"
+					 +"\nYou win and the old man easily\npulls out the sword from the tree and hands you the sword\n"
 					 + "\"I know we had a deal anyway but would you mind helping me still\" the old man askes");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
