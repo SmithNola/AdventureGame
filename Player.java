@@ -1,7 +1,11 @@
 public class Player {
-	private int health=50;
-	private String weapon="Bronze Sword";
+	private int health = 50;
+	private String weapon = "Bronze Sword";
 	
+	public Player(int newHealth, String newWeapon) {
+		health = newHealth;
+		weapon = newWeapon;
+	}
 	
 	public void setHealth(int newHealth) {
 		this.health = newHealth;
@@ -12,7 +16,7 @@ public class Player {
 	}
 	
 	public void setWeapon(String newWeapon){
-		this.weapon=newWeapon;
+		this.weapon = newWeapon;
 	}
 	
 	public String getWeapon(){
@@ -23,13 +27,13 @@ public class Player {
 		int weapond = 0;
 		switch(this.weapon){
 		case "Wooden Sword":
-			weapond=5;
+			weapond = 5;
 			break;
 		case "Bronze Sword":
-			weapond=10;
+			weapond = 10;
 			break;
 		case "Silver Sword":
-			weapond=15;
+			weapond = 15;
 			break;
 		}
 		return weapond;

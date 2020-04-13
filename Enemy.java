@@ -4,8 +4,14 @@ public class Enemy {
 	private String type;
 	private String weapon;
 	
+	public Enemy(int newHealth, String newType, String newWeapon) {
+		health = newHealth;
+		type = newType;
+		weapon = newWeapon;
+	}
+	
 	public void setHealth(int newHealth){
-		this.health=newHealth;
+		this.health = newHealth;
 	}
 	
 	public int getHealth(){
@@ -13,7 +19,7 @@ public class Enemy {
 	}
 	
 	public void setType(String newType){
-		this.type=newType;
+		this.type = newType;
 		
 		switch(newType){//sets the weapon and damage based on type
 			case "Bandit":
@@ -36,14 +42,14 @@ public class Enemy {
 	}
 	
 	public void setWeapon(String newWeapon){
-		this.weapon=newWeapon;
+		this.weapon = newWeapon;
 	}
 	
 	public String getWeapon(){
 		return weapon;
 	}
 	
-	public int getRand(int r){//generate random number for damage
+	private int generateRandom(int r){//generate random number for damage
 		Random rand = new Random();
 		int num = 0;
 		while(num == 0){
@@ -52,17 +58,17 @@ public class Enemy {
 		return num;
 	}
 	
-	public int weapond(){//sets weapon damage based on current weapon
+	public int getWeaponDamage(){//sets weapon damage based on current weapon
 		int weapond = 0;
 		switch(this.weapon){
 			case "Wooden Sword":
-				weapond=getRand(5);
+				weapond = generateRandom(5);
 				break;
 			case "Teeth":
-				weapond=getRand(10);
+				weapond = generateRandom(10);
 				break;
 			case "Axe":
-				weapond=getRand(15);
+				weapond = generateRandom(15);
 				break;
 		}
 		return weapond;
