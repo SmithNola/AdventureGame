@@ -641,6 +641,7 @@ public class Game {
 		 							break;
 		 						case "c2":
 		 							giveUp();
+		 							 nextPage();
 		 							break;
 		 					}
 		 					break;
