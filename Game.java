@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.Color; 
 import java.util.Random;
 import java.awt.Container;
 import java.awt.Font;
@@ -24,8 +24,10 @@ public class Game {
 	Font choiceFont = new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea;
 	String position;
-	Player p1 = new Player();//player object
-	Enemy e = new Enemy();//enemy object
+	Character player = new Character("Player");//player object
+	Character bandit = new Character("Bandit");//bandit enemy
+	Character dog = new Character("Big Dog");//bandit enemy
+	Character ogre = new Character("Ogre");//bandit enemy
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
@@ -90,8 +92,8 @@ public class Game {
 		 
 		 mainTextArea = new JTextArea("Every new knight has to go through a knighthood "
 		 		+ "where they\nadventure out into the world on their own, so you set off "
-		 		+ "to begin\nyour journey out of your own kingdom you have lived in your"
-		 		+ " entire\nlife untilyou reach your knighthood town, Yullie.");
+		 		+ "to begin\nyour journey out of your own kingdom that you have lived in your\n"
+		 		+ " entire life until you reach your knighthood town, Yullie.");
 		 mainTextArea.setBounds(50,50,700,400);
 		 mainTextArea.setBackground(Color.black);
 		 mainTextArea.setForeground(Color.white);
@@ -112,6 +114,15 @@ public class Game {
 		 startButtonPanel.setBounds(175,450,400,100);
 		 startButtonPanel.add(startButton);
 		 con.add(startButtonPanel);
+	 }
+	 
+	 public void playerSetup(){
+		 weaponLabelp.setText("Weapon: " + player.getWeaponName());
+		 hpLabelp.setText("HP: " + player.getHealth());
+		 
+		 enemyLabel.setText(bandit.getType());
+		 weaponLabele.setText("Weapon: " + bandit.getWeaponName());
+		 hpLabele.setText("HP: " + bandit.getHealth());
 	 }
 	 
 	 public void mainGame(){//first  battle scene
@@ -161,7 +172,7 @@ public class Game {
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea.setText("Right out of the castle you encounter a bandit that likes to   target innocents\n"
+		 mainTextArea.setText("Right out of the castle you encounter a bandit that likes to\ntarget innocents.\n"
 		 		+ "\"Give me all your money or die\" he says.\n"
 		 		+ "What do you do? He looks weak.");
 		 mainTextArea.setBounds(100,100,600,150);
@@ -200,8 +211,7 @@ public class Game {
 		 choice2.setActionCommand("c2");
 		 choiceButtonPanel.add(choice2);
 		 
-		 position = "attack";
-		 
+		 position = "attack"; 
 	 }
 	 
 	 public void attack(){
@@ -210,23 +220,23 @@ public class Game {
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 
-		 e.setHealth(e.getHealth() - p1.weapond());//when player attacks
-		 p1.setHealth(p1.getHealth() - e.getWeaponDamage());//when enemy attacks
+		 bandit.setHealth(bandit.getHealth() - player.getWeaponDamage());//when player attacks
+		 player.setHealth(player.getHealth() - bandit.getWeaponDamage());//when enemy attacks
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 if(e.getHealth()>0){//if enemy has not been defeated
-			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
-		 		+ "The bandit did " + e.getWeaponDamage() + " damage to you");
-			 hpLabele.setText("HP: " + e.getHealth());//shows new stats
-			 hpLabelp.setText("HP: " + p1.getHealth());//shows new stats
+		 if(bandit.getHealth()>0){//if enemy has not been defeated
+			 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
+		 		+ "The bandit did " + bandit.getWeaponDamage() + " damage to you");
+			 hpLabele.setText("HP: " + bandit.getHealth());//shows new stats
+			 hpLabelp.setText("HP: " + player.getHealth());//shows new stats
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 		 }else{
-				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
 				 		+ "The bandit has been defeated");
 				 hpLabele.setText("HP: " + 0);
-				 hpLabelp.setText("HP: " + p1.getHealth());
+				 hpLabelp.setText("HP: " + player.getHealth());
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
@@ -245,14 +255,14 @@ public class Game {
 		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea.setText("The bandit takes all your stuff and says, \"Wow a bronze\nsword now I can win more fights.\"\n"
-		 		+ "The bandit throws his wooden sword to the ground and\nleaves with your stuff\n"
+		 		+ "The bandit throws his wooden sword to the ground and\nleaves with your stuff.\n"
 		 		+ "You now continue on with your journey with only a\nwooden sword.");
 		 
 		 mainTextPanel.setBounds(100,100,600,175);
 		 mainTextPanel.add(mainTextArea);
 		 
-		 p1.setWeapon("Wooden Sword");
-		 weaponLabelp.setText("Weapon: " + p1.getWeapon());
+		 player.setWeapon("Wooden Sword");
+		 weaponLabelp.setText("Weapon: " + player.getWeaponName());
 		 
 		 nextPage();
 		 
@@ -262,16 +272,6 @@ public class Game {
 		 
 	 }
 	 
-	 public void playerSetup(){
-		 weaponLabelp.setText("Weapon: " + p1.getWeapon());
-		 hpLabelp.setText("HP: " + p1.getHealth());
-		 
-		 e.setType("Bandit");
-		 enemyLabel.setText(e.getType());
-		 weaponLabele.setText("Weapon: " + e.getWeapon());
-		 hpLabele.setText("HP: " + e.getHealth());
-	 }
-	 
 	 public void bigTree(){
 		 position = "bigTree";
 		 enemyPanel.setVisible(false);
@@ -279,7 +279,7 @@ public class Game {
 		 choiceButtonPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 
-		 mainTextArea.setText("\"Hello, would you mind spend some time with an old man  to pass some time. "
+		 mainTextArea.setText("\"Hello, would you mind spending some time with an old man  to pass some time. "
 		 		+ "I have some dice if you win I will give\nyou the sword\n"
 		 		+ "If I win you have to help me with a task.\" says the old man.\n"
 		 		+ "You decide to play the game so you can get the sword");
@@ -315,7 +315,7 @@ public class Game {
 		 if(nump>nume){//if play wins
 			 nextButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a " + nump + ".\nThe old man rolled a " + nume
-					 +"\nYou win and the old man easily\npulls out the sword from the tree and hands you the sword\n"
+					 +"\nYou win and the old man easily pulls out the sword from the tree and hands you the sword.\n"
 					 + "\"I know we had a deal anyway but would you mind helping me still\" the old man askes");
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea);
@@ -323,8 +323,8 @@ public class Game {
 				
 				 position="helpWin";
 				 
-				 p1.setWeapon("Silver Sword");
-				 weaponLabelp.setText(p1.getWeapon());
+				 player.setWeapon("Silver Sword");
+				 weaponLabelp.setText(player.getWeaponName());
 				
 		 }
 		 else{//if player loses
@@ -351,7 +351,6 @@ public class Game {
 			 mainTextPanel.add(mainTextArea);
 			 mainTextPanel.setVisible(true);
 			 
-			 e.setHealth(30);
 			 position="dogFight";
 	 }
 	 
@@ -363,17 +362,17 @@ public class Game {
 		 enemyPanel.setVisible(true);
 		 choiceButtonPanel.setVisible(true);
 		 
-		 e.setHealth(e.getHealth() - p1.weapond());//when player attacks
-		 p1.setHealth(p1.getHealth() - e.getWeaponDamage());//when enemy attacks
+		 dog.setHealth(dog.getHealth() - player.getWeaponDamage());//when player attacks
+		 player.setHealth(player.getHealth() - dog.getWeaponDamage());//when enemy attacks
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 if(e.getHealth()>0){
+		 if(dog.getHealth()>0){
 			 position="dogfight";
-			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
-		 		+ "The dog did " + e.getWeaponDamage() + " damage to you");
-			 hpLabele.setText("HP: " + e.getHealth());
-			 hpLabelp.setText("HP: " + p1.getHealth());
+			 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
+		 		+ "The dog did " + dog.getWeaponDamage() + " damage to you");
+			 hpLabele.setText("HP: " + dog.getHealth());
+			 hpLabelp.setText("HP: " + player.getHealth());
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 			 
@@ -383,10 +382,10 @@ public class Game {
 		 }
 		 else{
 			 	 choiceButtonPanel.setVisible(false);
-				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
 				 		+ "The dog has been defeated");
 				 hpLabele.setText("HP: " + 0);
-				 hpLabelp.setText("HP: " + p1.getHealth());
+				 hpLabelp.setText("HP: " + player.getHealth());
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
@@ -402,31 +401,31 @@ public class Game {
 		 startButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(true);
 		 
-		 e.setHealth(e.getHealth() - p1.weapond());//when player attacks
-		 p1.setHealth(p1.getHealth() - e.getWeaponDamage());//when enemy attacks
+		 ogre.setHealth(ogre.getHealth() - player.getWeaponDamage());//when player attacks
+		 player.setHealth(player.getHealth() - ogre.getWeaponDamage());//when enemy attacks
 		 mainTextPanel.setVisible(true);
 		 mainTextPanel.remove(mainTextArea);
 		 
-		 if(p1.getHealth() <= 0){
-			 hpLabelp.setText("HP: "+p1.getHealth());
+		 if(player.getHealth() <= 0){
+			 hpLabelp.setText("HP: "+ogre.getHealth());
 			 nextButtonPanel.setVisible(false);
 			 lose();
 			 position = " ";
 		 }
-		 else if(e.getHealth()>0){
-			 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
-		 		+ "The ogre did "+ e.getWeaponDamage() + " damage to you");
-			 hpLabele.setText("HP: "+e.getHealth());
-			 hpLabelp.setText("HP: "+p1.getHealth());
+		 else if(ogre.getHealth()>0){
+			 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
+		 		+ "The ogre did "+ ogre.getWeaponDamage() + " damage to you");
+			 hpLabele.setText("HP: "+ogre.getHealth());
+			 hpLabelp.setText("HP: "+player.getHealth());
 			 mainTextPanel.setBounds(100,100,600,150);
 			 mainTextPanel.add(mainTextArea);
 		 }
 		 else{
 			 	 choiceButtonPanel.setVisible(false);
-				 mainTextArea.setText("You did " + p1.weapond() + " damage to the enemy\n"
+				 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
 				 		+ "The ogre has been defeated");
 				 hpLabele.setText("HP: "+0);
-				 hpLabelp.setText("HP: "+p1.getHealth());
+				 hpLabelp.setText("HP: "+player.getHealth());
 				 mainTextPanel.setBounds(100,100,600,150);
 				 mainTextPanel.add(mainTextArea); 
 				 
@@ -526,8 +525,8 @@ public class Game {
  							+ "You gained 15 health");
  						mainTextPanel.setBounds(100,100,600,150);
  						mainTextPanel.add(mainTextArea);
- 						p1.setHealth(p1.getHealth() + 15);
- 						hpLabelp.setText("HP: " + p1.getHealth());
+ 						player.setHealth(player.getHealth() + 15);
+ 						hpLabelp.setText("HP: " + player.getHealth());
  					
  						position = "bigTreeText";
  						mainTextPanel.setVisible(true);
@@ -536,7 +535,7 @@ public class Game {
  					case "bigTreeText":
  					
  						mainTextArea.setText("You continue on and encounter a big oak tree with a"
- 					 		+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real good.\n"
+ 					 		+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real\ngood.\n"
  					 		+ "Then a short stubby man comes out from behind the tree");
  						mainTextPanel.setBounds(100,100,600,150);
  						mainTextPanel.add(mainTextArea);
@@ -571,10 +570,9 @@ public class Game {
  							 mainTextPanel.add(mainTextArea);
  							 mainTextPanel.setVisible(true);
  							  
- 							 e.setType("Ogre");
- 							 enemyLabel.setText(e.getType());
- 							 weaponLabele.setText("Weapon: " + e.getWeapon());
- 							 hpLabele.setText("HP: " + e.getHealth());
+ 							 enemyLabel.setText(ogre.getType());
+ 							 weaponLabele.setText("Weapon: " + ogre.getWeaponName());
+ 							 hpLabele.setText("HP: " + ogre.getHealth());
  							 position = "ogreFight";
  							 break;
  							 
@@ -664,10 +662,9 @@ public class Game {
 		 						knightStory();
 		 						break;
 		 					case "c2":
-		 						 e.setType("Big Dog");
-		 						 enemyLabel.setText(e.getType());
-		 						 weaponLabele.setText("Weapon: " + e.getWeapon());
-		 						 hpLabele.setText("HP: " + e.getHealth());
+		 						 enemyLabel.setText(dog.getType());
+		 						 weaponLabele.setText("Weapon: " + dog.getWeaponName());
+		 						 hpLabele.setText("HP: " + dog.getHealth());
 		 						dogFightBegin();
 		 						break;
 		 					}
