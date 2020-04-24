@@ -1,7 +1,7 @@
 
 public class Weapon {
 	private String name;
-	private int damage = 0;
+	private int damage;
 	
 	public Weapon(String newName){
 		name = newName;
@@ -12,10 +12,16 @@ public class Weapon {
 		return name;
 	}
 	
-	private void setDamage(String name){
+	public void setDamage(String name){
 		switch(name){
+			case "Bronze Sword":
+				damage = 10;
+				break;
 			case "Wooden Sword":
 				damage = 5;
+				break;
+			case "Silver Sword":
+				damage = 20;
 				break;
 			case "Teeth":
 				damage = 10;

@@ -22,12 +22,13 @@ public class Game {
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont = new Font("Times New Roman", Font.PLAIN, 22);
-	JTextArea mainTextArea;
-	String position;
+	JTextArea mainTextArea = new JTextArea();
+	String position;// for where the next button should go next
+	
 	Character player = new Character("Player");//player object
 	Character bandit = new Character("Bandit");//bandit enemy
-	Character dog = new Character("Big Dog");//bandit enemy
-	Character ogre = new Character("Ogre");//bandit enemy
+	Character dog = new Character("Big Dog");//Big Dog enemy
+	Character ogre = new Character("Ogre"); // Ogre enemy
 	
 	startScreenHandler startHandler = new startScreenHandler();
 	mainGameScreenHandler mainGameHandler = new mainGameScreenHandler();
@@ -72,7 +73,12 @@ public class Game {
 		 
 		 mainTextPanel = new JPanel();
 		 mainTextPanel.setBackground(Color.black);
-		 mainTextArea = new JTextArea();
+		 
+		 mainTextArea.setBounds(50,50,700,400);
+		 mainTextArea.setBackground(Color.black);
+		 mainTextArea.setForeground(Color.white);
+		 mainTextArea.setFont(textFont);
+		 mainTextArea.setLineWrap(true);
 		 mainTextArea.setEditable(false);
 		 mainTextPanel.setVisible(false);
 		 
@@ -88,18 +94,12 @@ public class Game {
 		 titleNamePanel.setVisible(false);
 		 
 		 mainTextPanel.setBounds(50,50,700,400);
-		 mainTextPanel.remove(mainTextArea);
 		 
-		 mainTextArea = new JTextArea("Every new knight has to go through a knighthood "
+		 mainTextArea.setText("Every new knight has to go through a knighthood "
 		 		+ "where they\nadventure out into the world on their own, so you set off "
 		 		+ "to begin\nyour journey out of your own kingdom that you have lived in your\n"
 		 		+ " entire life until you reach your knighthood town, Yullie.");
-		 mainTextArea.setBounds(50,50,700,400);
-		 mainTextArea.setBackground(Color.black);
-		 mainTextArea.setForeground(Color.white);
-		 mainTextArea.setFont(textFont);
-		 mainTextArea.setLineWrap(true);
-		 mainTextArea.setEditable(false); 
+
 		 mainTextPanel.add(mainTextArea);
 		 
 		 startButtonPanel.remove(startButton);//removes previous instance of button since I edited it
@@ -170,20 +170,12 @@ public class Game {
 		 playerSetup();//sets up plater stats
 		 
 		 mainTextPanel.setVisible(true);
-		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea.setText("Right out of the castle you encounter a bandit that likes to\ntarget innocents.\n"
 		 		+ "\"Give me all your money or die\" he says.\n"
 		 		+ "What do you do? He looks weak.");
-		 mainTextArea.setBounds(100,100,600,150);
-		 mainTextArea.setBackground(Color.black);
-		 mainTextArea.setForeground(Color.white);
-		 mainTextArea.setFont(textFont);
-		 mainTextArea.setLineWrap(true);
-		 mainTextArea.setEditable(false); 
 		 
-		 mainTextPanel.setBounds(100,100,600,150);
-		 mainTextPanel.add(mainTextArea);
+		 mainTextPanel.setBounds(100,100,800,150);
 		 
 		 choiceButtonPanel = new JPanel();
 		 choiceButtonPanel.setBounds(250, 400, 300, 150);
@@ -219,26 +211,23 @@ public class Game {
 		 titleNamePanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
+		 mainTextPanel.setVisible(true);
 		 
 		 bandit.setHealth(bandit.getHealth() - player.getWeaponDamage());//when player attacks
 		 player.setHealth(player.getHealth() - bandit.getWeaponDamage());//when enemy attacks
-		 mainTextPanel.setVisible(true);
-		 mainTextPanel.remove(mainTextArea);
 		 
 		 if(bandit.getHealth()>0){//if enemy has not been defeated
 			 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
 		 		+ "The bandit did " + bandit.getWeaponDamage() + " damage to you");
 			 hpLabele.setText("HP: " + bandit.getHealth());//shows new stats
 			 hpLabelp.setText("HP: " + player.getHealth());//shows new stats
-			 mainTextPanel.setBounds(100,100,600,150);
-			 mainTextPanel.add(mainTextArea);
+			 mainTextPanel.setBounds(150,100,800,150);
 		 }else{
 				 mainTextArea.setText("You did " + player.getWeaponDamage() + " damage to the enemy\n"
 				 		+ "The bandit has been defeated");
 				 hpLabele.setText("HP: " + 0);
 				 hpLabelp.setText("HP: " + player.getHealth());
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea); 
+				 mainTextPanel.setBounds(150,100,800,150);
 				 
 				 nextPage();
 				 
@@ -252,14 +241,12 @@ public class Game {
 		 startButtonPanel.setVisible(false);
 		 
 		 mainTextPanel.setVisible(true);
-		 mainTextPanel.remove(mainTextArea);
 		 
 		 mainTextArea.setText("The bandit takes all your stuff and says, \"Wow a bronze\nsword now I can win more fights.\"\n"
 		 		+ "The bandit throws his wooden sword to the ground and\nleaves with your stuff.\n"
 		 		+ "You now continue on with your journey with only a\nwooden sword.");
 		 
-		 mainTextPanel.setBounds(100,100,600,175);
-		 mainTextPanel.add(mainTextArea);
+		 mainTextPanel.setBounds(100,100,800,175);
 		 
 		 player.setWeapon("Wooden Sword");
 		 weaponLabelp.setText("Weapon: " + player.getWeaponName());
@@ -279,12 +266,11 @@ public class Game {
 		 choiceButtonPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 
-		 mainTextArea.setText("\"Hello, would you mind spending some time with an old man  to pass some time. "
+		 mainTextArea.setText("\"Hello, would you mind spending some time with an old man\nto pass some time. "
 		 		+ "I have some dice if you win I will give\nyou the sword\n"
 		 		+ "If I win you have to help me with a task.\" says the old man.\n"
-		 		+ "You decide to play the game so you can get the sword");
-		 mainTextPanel.setBounds(100,100,600,150);
-		 mainTextPanel.add(mainTextArea);
+		 		+ "You decide to play the game so you can get the sword.");
+		 mainTextPanel.setBounds(25,100,800,150);
 		 mainTextPanel.setVisible(true);
 		 
 		 position="play";
@@ -303,7 +289,7 @@ public class Game {
 		 while(nump == nume){//rerolls if user and old man roll the same number
 			 nump = rand.nextInt(6);
 			 nume = rand.nextInt(6);
-			 //there is not 0 on dice so I change it to a 6 instead
+			 //there is no 0 on dice so I change it to a 6 instead
 			 if(nump == 0){
 				 nump = 6;
 			 }
@@ -315,25 +301,22 @@ public class Game {
 		 if(nump>nume){//if play wins
 			 nextButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a " + nump + ".\nThe old man rolled a " + nume
-					 +"\nYou win and the old man easily pulls out the sword from the tree and hands you the sword.\n"
-					 + "\"I know we had a deal anyway but would you mind helping me still\" the old man askes");
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea);
-				 mainTextPanel.setVisible(true);
+					 +"\nYou win and the old man easily pulls out the sword\nfrom the tree and hands you the sword.\n"
+					 + "\"I know we had a deal anyway but would you mind helping me still\"\nthe old man askes");
+			mainTextPanel.setBounds(100,100,600,175);
+			mainTextPanel.setVisible(true);
 				
-				 position="helpWin";
+			position="helpWin";
 				 
-				 player.setWeapon("Silver Sword");
-				 weaponLabelp.setText(player.getWeaponName());
+			player.setWeapon("Silver Sword");
+			weaponLabelp.setText(player.getWeaponName());
 				
 		 }
 		 else{//if player loses
 			 choiceButtonPanel.setVisible(true);
 			 mainTextArea.setText("You rolled a "+nump+".\nThe old man rolled a " + nume + ".\nWelp a deal is a deal right?");
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea);
-				 mainTextPanel.setVisible(true);
-				 position="helpLost";
+			 mainTextPanel.setVisible(true);
+			 position="helpLost";
 				 
 			choice1.setText("Stick to Deal");
 			choice2.setText("Break Deal");
@@ -344,14 +327,11 @@ public class Game {
 	 public void dogFightBegin(){
 		 nextButtonPanel.setVisible(true);
 		 choiceButtonPanel.setVisible(false);
-		 mainTextPanel.remove(mainTextArea);
 		 mainTextArea.setText("\"I do not like deal breakers and neither does my dog\" says\nthe old man\n"
 		 		+ "A big dog emerges from behind the tree and barks very\nloudly and shows off his big sharp teeth");
-			 mainTextPanel.setBounds(100,100,600,150);
-			 mainTextPanel.add(mainTextArea);
-			 mainTextPanel.setVisible(true);
+		 mainTextPanel.setVisible(true);
 			 
-			 position="dogFight";
+		 position="dogFight";
 	 }
 	 
 	 public void dogFight(){
@@ -365,7 +345,6 @@ public class Game {
 		 dog.setHealth(dog.getHealth() - player.getWeaponDamage());//when player attacks
 		 player.setHealth(player.getHealth() - dog.getWeaponDamage());//when enemy attacks
 		 mainTextPanel.setVisible(true);
-		 mainTextPanel.remove(mainTextArea);
 		 
 		 if(dog.getHealth()>0){
 			 position="dogfight";
@@ -373,8 +352,6 @@ public class Game {
 		 		+ "The dog did " + dog.getWeaponDamage() + " damage to you");
 			 hpLabele.setText("HP: " + dog.getHealth());
 			 hpLabelp.setText("HP: " + player.getHealth());
-			 mainTextPanel.setBounds(100,100,600,150);
-			 mainTextPanel.add(mainTextArea);
 			 
 			 choice1.setText("Attack");
 			 choice2.setText("Give In");
@@ -386,11 +363,8 @@ public class Game {
 				 		+ "The dog has been defeated");
 				 hpLabele.setText("HP: " + 0);
 				 hpLabelp.setText("HP: " + player.getHealth());
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea); 
 				 
-				 position="continue";
-				
+				 position = "continue";
 		 }
 	 }
 	 
@@ -404,7 +378,6 @@ public class Game {
 		 ogre.setHealth(ogre.getHealth() - player.getWeaponDamage());//when player attacks
 		 player.setHealth(player.getHealth() - ogre.getWeaponDamage());//when enemy attacks
 		 mainTextPanel.setVisible(true);
-		 mainTextPanel.remove(mainTextArea);
 		 
 		 if(player.getHealth() <= 0){
 			 hpLabelp.setText("HP: "+ogre.getHealth());
@@ -417,8 +390,6 @@ public class Game {
 		 		+ "The ogre did "+ ogre.getWeaponDamage() + " damage to you");
 			 hpLabele.setText("HP: "+ogre.getHealth());
 			 hpLabelp.setText("HP: "+player.getHealth());
-			 mainTextPanel.setBounds(100,100,600,150);
-			 mainTextPanel.add(mainTextArea);
 		 }
 		 else{
 			 	 choiceButtonPanel.setVisible(false);
@@ -426,8 +397,6 @@ public class Game {
 				 		+ "The ogre has been defeated");
 				 hpLabele.setText("HP: "+0);
 				 hpLabelp.setText("HP: "+player.getHealth());
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea); 
 				 
 				 position = "ogreWin";
 		 }
@@ -440,14 +409,10 @@ public class Game {
 		 choiceButtonPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 
-		 mainTextPanel.remove(mainTextArea);
-		 
 		 mainTextArea.setText("\"Thank you for helping me. Seeing you go on your\nknighthood has reminded me of mine "
 			 		+ "with a fellow knight. This \nsword was my friend's he never made it past the ogre up\nahead. Will you"
 			 		+ " please take this sword and bring it to the \nknighthood\"");
-				 mainTextPanel.setBounds(100,100,600,150);
-				 mainTextPanel.add(mainTextArea);
-				 mainTextPanel.setVisible(true);
+		mainTextPanel.setVisible(true);
 				  
 		position = "continue";
 	 }
@@ -484,7 +449,6 @@ public class Game {
 		 startOverPanel.add(startOverButton);
 		 con.add(startOverPanel);
 		 position=" "; 
-	
 	 }
 	 
 	 public void nextPage(){
@@ -515,7 +479,6 @@ public class Game {
 		 	public void actionPerformed(ActionEvent event){
 		 		enemyPanel.setVisible(false);
 		 		mainTextPanel.setVisible(false);
-		 		mainTextPanel.remove(mainTextArea);
 		 		switch(position){
 		 		
  					case "fight1":
@@ -523,8 +486,7 @@ public class Game {
  						mainTextArea.setText("Wow that was easy but you did take some damage\n"
  							+ "You see a health potion next to him and  pick it up\n"
  							+ "You gained 15 health");
- 						mainTextPanel.setBounds(100,100,600,150);
- 						mainTextPanel.add(mainTextArea);
+ 						mainTextPanel.setBounds(100,100,800,150);
  						player.setHealth(player.getHealth() + 15);
  						hpLabelp.setText("HP: " + player.getHealth());
  					
@@ -537,8 +499,6 @@ public class Game {
  						mainTextArea.setText("You continue on and encounter a big oak tree with a"
  					 		+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real\ngood.\n"
  					 		+ "Then a short stubby man comes out from behind the tree");
- 						mainTextPanel.setBounds(100,100,600,150);
- 						mainTextPanel.add(mainTextArea);
  						mainTextPanel.setVisible(true);
  						position = "bigTree";
  						break;
@@ -566,15 +526,13 @@ public class Game {
  					case "continue":
  						mainTextArea.setText("You continue on until you find a tower. You walk in "
  								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
- 							 mainTextPanel.setBounds(100,100,600,150);
- 							 mainTextPanel.add(mainTextArea);
- 							 mainTextPanel.setVisible(true);
+ 						mainTextPanel.setVisible(true);
  							  
- 							 enemyLabel.setText(ogre.getType());
- 							 weaponLabele.setText("Weapon: " + ogre.getWeaponName());
- 							 hpLabele.setText("HP: " + ogre.getHealth());
- 							 position = "ogreFight";
- 							 break;
+ 						enemyLabel.setText(ogre.getType());
+ 						weaponLabele.setText("Weapon: " + ogre.getWeaponName());
+ 						hpLabele.setText("HP: " + ogre.getHealth());
+ 						position = "ogreFight";
+ 						break;
  							 
  					case "ogreFight":
  						ogreFight();
@@ -582,9 +540,7 @@ public class Game {
  						
  					case "ogreWin":
  						mainTextArea.setText("Now your journey is finished and you travel to Yullie Town");
- 							 mainTextPanel.setBounds(100,100,600,150);
- 							 mainTextPanel.add(mainTextArea);
- 							 mainTextPanel.setVisible(true);
+ 						mainTextPanel.setVisible(true);
  						position = "town";
  					break;
  					
@@ -592,10 +548,8 @@ public class Game {
  						 nextButton.setVisible(false);
  						 nextButtonPanel.setVisible(false);
  						
- 						 mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because"
+ 						 mainTextArea.setText("As you enter Yullie Town you are greeted with excitement because\n"
  								+ " you have just finihed your knighthood. \nCongratulations!!");
-						 mainTextPanel.setBounds(100,100,600,150);
-						 mainTextPanel.add(mainTextArea);
 						 mainTextPanel.setVisible(true);
 						 
 						 startOverButton = new JButton("START OVER");
@@ -641,7 +595,6 @@ public class Game {
 		 							break;
 		 						case "c2":
 		 							giveUp();
-		 							 nextPage();
 		 							break;
 		 					}
 		 					break;

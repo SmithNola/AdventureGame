@@ -45,6 +45,7 @@ public class Character {
 	}
 	
 	public void setWeapon(String newWeapon){
+		weapon.setDamage(newWeapon);
 		this.weapon = new Weapon(newWeapon);
 	}
 	
@@ -53,11 +54,14 @@ public class Character {
 	}
 	
 	public int getWeaponDamage(){//sets weapon damage based on current weapon
-		Random rand = new Random();
 		int weaponDamage = 0;
-		while(weaponDamage == 0){
-			weaponDamage = rand.nextInt(weapon.getDamage()+1);
-		
+		if(type.equals("Player")){
+			weaponDamage = weapon.getDamage();
+		}else{
+			Random rand = new Random();
+			while(weaponDamage == 0){
+				weaponDamage = rand.nextInt(weapon.getDamage()+1);
+			}
 		}
 		return weaponDamage;
 	}
