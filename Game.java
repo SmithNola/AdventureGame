@@ -18,12 +18,11 @@ public class Game {
 	JPanel titleNamePanel, startOverPanel, startButtonPanel, mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
 	JLabel titleName, hpLabelp, weaponLabelp,hpLabele, weaponLabele,enemyLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton nextButton,choice1,choice2,choice3,choice4;
+	JButton startButton, nextButton,choice1,choice2,choice3,choice4;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont = new Font("Times New Roman", Font.PLAIN, 22);
 	JTextArea mainTextArea = new JTextArea();
-	JButton startButton = new JButton();
 	String nextPosition;// for where the next button should go next
 	
 	Character player = new Character("Player");// player object
@@ -56,7 +55,7 @@ public class Game {
 		 titleName.setForeground(Color.white);//color of text
 		 titleName.setFont(titleFont);
 		 
-		 startButton.setText("START");
+		 startButton = new JButton("START");
 		 startButton.setBackground(Color.black);
 		 startButton.setForeground(Color.white);
 		 startButton.setFont(buttonFont);
@@ -88,7 +87,7 @@ public class Game {
 		
 	 }
 	 
-	 public void createGameScreen(){//first game screen
+	 private void createGameScreen(){//first game screen
 		 mainTextPanel.setVisible(true);
 		 titleNamePanel.setVisible(false);
 		 
@@ -101,7 +100,7 @@ public class Game {
 
 		 mainTextPanel.add(mainTextArea);
 		 
-		 startButtonPanel.remove(startButton);//removes previous instance of button since I edited it
+		 startButtonPanel.remove(startButton);
 		 
 		 startButton = new JButton("Begin Your Adventure");
 		 startButton.setBackground(Color.black);
@@ -115,7 +114,7 @@ public class Game {
 		 con.add(startButtonPanel);
 	 }
 	 
-	 public void mainGame(){//first  battle scene
+	 private void mainGame(){//first  battle scene
 		 titleNamePanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
@@ -194,7 +193,7 @@ public class Game {
 		 nextPosition = "attack"; 
 	 }
 	 
-	 public void attack(){
+	 private void attack(){
 		 nextPosition = "attack";
 		 titleNamePanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
@@ -223,10 +222,11 @@ public class Game {
 		 }
 	}
 	 
-	 public void giveUp(){
+	 private void giveUp(){
 		 titleNamePanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 startButtonPanel.setVisible(false);
+		 enemyPanel.setVisible(false);
 		 mainTextPanel.setVisible(true);
 		 
 		 mainTextArea.setText("The bandit takes all your stuff and says, \"Wow a bronze\nsword now I can win more fights.\"\n"
@@ -242,11 +242,9 @@ public class Game {
 		 
 		 nextPosition="bigTree";
 		 
-		 enemyPanel.setVisible(false);
-		 
 	 }
 	 
-	 public void play(){
+	 private void play(){
 		 enemyPanel.setVisible(false);
 		 mainTextPanel.setVisible(false);
 		 nextButtonPanel.setVisible(false);
@@ -293,7 +291,7 @@ public class Game {
 		 
 	 }
 	 
-	 public void dogFightBegin(){
+	 private void dogFightBegin(){
 		 nextButtonPanel.setVisible(true);
 		 choiceButtonPanel.setVisible(false);
 		 
@@ -308,7 +306,7 @@ public class Game {
 		 nextPosition="dogFight";
 	 }
 	 
-	 public void dogFight(){
+	 private void dogFight(){
 		
 		 enemyPanel.setVisible(true);
 		 choiceButtonPanel.setVisible(true);
@@ -335,11 +333,11 @@ public class Game {
 				 hpLabele.setText("HP: " + 0);
 				 hpLabelp.setText("HP: " + player.getHealth());
 				 
-				 nextPosition = "continue";
+				 nextPosition = "bernardTown";
 		 }
 	 }
 	 
-	 public void ogreFight(){
+	 private void ogreFight(){
 		 
 		 enemyPanel.setVisible(true);
 		 
@@ -374,7 +372,7 @@ public class Game {
 		 }
 	 }
 	 
-	 public void knightStory(){
+	 private void knightStory(){
 		
 		 enemyPanel.setVisible(false);
 		 nextButtonPanel.setVisible(true);
@@ -385,10 +383,27 @@ public class Game {
 			 		+ " please take this sword and bring\nit to the knighthood\"");
 		mainTextPanel.setVisible(true);
 				  
-		nextPosition = "continue";
+		nextPosition = "bernardTown";
 	 }
 	 
-	 public void lose(){//if player dies
+	 private void bernardTown(){
+		 nextButtonPanel.setVisible(false);
+		 choiceButtonPanel.setVisible(true);
+		 
+		 mainTextArea.setText("As you contiue on your journey you encounter the town of Bernard.\n"
+				 + "You walk on through until you encounter a weapon shop.\n"
+				 + "This is a good opportunity to get a new sword.\n"
+				 +"Do you want to enter the shop or continue on?");
+		 
+		 choice1.setText("Enter Shop");
+		 choice2.setText("Continue On"); 
+	 }
+	 
+	 private void shop(){
+		 
+	 }
+	 
+	 private void lose(){//if player dies
 		 nextButtonPanel.setVisible(false);
 		 choiceButtonPanel.setVisible(false);
 		 enemyPanel.setVisible(false);
@@ -413,7 +428,7 @@ public class Game {
 		 nextPosition=" "; 
 	 }
 	 
-	 public void nextPage(){
+	 private void nextPage(){
 		 choiceButtonPanel.setVisible(false);
 		 
 		 nextButton = new JButton("==>");
@@ -493,7 +508,11 @@ public class Game {
  						knightStory();
  						break;
  						
- 					case "continue":
+ 					case "bernardTown":
+ 						bernardTown();
+ 						break;
+ 						
+ 					case "ogreFightBegin":
  						mainTextArea.setText("You continue on until you find a tower. You walk in "
  								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
  							  
@@ -576,6 +595,21 @@ public class Game {
 		 						break;
 		 					}
 		 					break;
+		 					
+		 				case "bernardTown":
+		 					switch(yourChoice){
+		 					case "c1":
+		 						shop();
+		 						break;
+		 					case "c2":
+		 						choiceButtonPanel.setVisible(false);
+		 						nextButtonPanel.setVisible(true);
+		 						mainTextArea.setText("You continue on until you find a tower. You walk in "
+		 								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
+		 							  
+		 						nextPosition = "ogreFight";
+		 						break;
+		 					}
 		 			}	
 		 	}
 	 }
