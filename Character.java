@@ -4,9 +4,19 @@ public class Character {
 	private int health;
 	private String type;
 	private Weapon weapon;
+	private int coins;
 	
 	public Character(String newType) {
+		coins = 5;
 		setType(newType);
+	}
+	
+	public void setCoins(int coins){
+		this.coins = coins;
+	}
+	
+	public int getCoins(){
+		return coins;
 	}
 	
 	public void setHealth(int newHealth){
@@ -15,6 +25,10 @@ public class Character {
 	
 	public int getHealth(){
 		return health;
+	}
+	
+	public int getWeaponValue(){
+		return weapon.getValue();
 	}
 	
 	public void setType(String newType){
