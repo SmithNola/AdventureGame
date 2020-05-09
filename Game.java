@@ -427,7 +427,7 @@ public class Game {
 		 shopPanel.setLayout(new GridLayout(2,2));
 		 con.add(shopPanel);
 		 
-		 woodenWeapon = new JButton("Wooden Sword");
+		 woodenWeapon = new JButton("Wooden Sword-5c");
 		 woodenWeapon.setBackground(Color.black);
 		 woodenWeapon.setForeground(Color.white);
 		 woodenWeapon.setFont(choiceFont);
@@ -437,7 +437,7 @@ public class Game {
 		 woodenWeapon.setActionCommand("Wooden Sword");
 		 shopPanel.add(woodenWeapon);
 		 
-		 bronzeWeapon = new JButton("Bronze Sword");
+		 bronzeWeapon = new JButton("Bronze Sword-10c");
 		 bronzeWeapon.setBackground(Color.black);
 		 bronzeWeapon.setForeground(Color.white);
 		 bronzeWeapon.setFont(choiceFont);
@@ -455,10 +455,10 @@ public class Game {
 		 
 		 silverWeapon.setFocusPainted(false);
 		 silverWeapon.addActionListener(shopHandler);
-		 silverWeapon.setActionCommand("Silver Sword");
+		 silverWeapon.setActionCommand("Silver Sword-15c");
 		 shopPanel.add(silverWeapon);
 		 
-		 diamondWeapon = new JButton("Diamond Sword");
+		 diamondWeapon = new JButton("Diamond Sword-17c");
 		 diamondWeapon.setBackground(Color.black);
 		 diamondWeapon.setForeground(Color.white);
 		 diamondWeapon.setFont(choiceFont);
@@ -468,7 +468,7 @@ public class Game {
 		 diamondWeapon.setActionCommand("Diamond Sword");
 		 shopPanel.add(diamondWeapon);
 		 
-		 apple = new JButton("Apple");
+		 apple = new JButton("Apple-5c");
 		 apple.setBackground(Color.black);
 		 apple.setForeground(Color.white);
 		 apple.setFont(choiceFont);
