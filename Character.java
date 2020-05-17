@@ -33,24 +33,25 @@ public class Character {
 	
 	public void setType(String newType){
 		this.type = newType;
-		
-		switch(newType){//sets the weapon and damage based on type
-			case "Player":
+
+		//sets the weapon and damage based on type
+		switch (newType) {
+			case "Player" -> {
 				weapon = new Weapon("Bronze Sword");
 				health = 50;
-				break;
-			case "Bandit":
+			}
+			case "Bandit" -> {
 				weapon = new Weapon("Wooden Sword");
 				health = 15;
-				break;
-			case "Big Dog":
+			}
+			case "Big Dog" -> {
 				weapon = new Weapon("Teeth");
 				health = 25;
-				break;
-			case "Ogre":
+			}
+			case "Ogre" -> {
 				weapon = new Weapon("Axe");
 				health = 35;
-				break;
+			}
 		}
 	}
 	

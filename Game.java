@@ -15,10 +15,10 @@ public class Game {
 	
 	JFrame window = new JFrame();
 	Container con;
-	JPanel titleNamePanel, shopPanel, startOverPanel, startButtonPanel, mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
+	JPanel titleNamePanel, shopPanel, startButtonPanel, mainTextPanel,choiceButtonPanel,nextButtonPanel, playerPanel, enemyPanel;
 	JLabel titleName, hpLabelp, weaponLabelp,hpLabele, weaponLabele,enemyLabel, coinsLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-	JButton startButton, nextButton,choice1,choice2,choice3,choice4, bronzeWeapon, woodenWeapon, silverWeapon, diamondWeapon, apple, leaveShop;
+	JButton startButton, nextButton,choice1,choice2, bronzeWeapon, woodenWeapon, silverWeapon, diamondWeapon, apple, leaveShop;
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 25);
 	Font choiceFont = new Font("Times New Roman", Font.PLAIN, 22);
@@ -544,95 +544,61 @@ public class Game {
 	 public class nextButtonHandler implements ActionListener{
 		 	public void actionPerformed(ActionEvent event){
 		 		enemyPanel.setVisible(false);
-		 		switch(nextPosition){
-		 		
- 					case "banditPlayerWin":
- 						
- 						mainTextArea.setText("Wow that was easy but you did take some damage\n"
- 							+ "You see a health potion and some coins next to him and\npick it up"
- 							+ "You gained 10 health");
- 						mainTextPanel.setBounds(100,100,800,150);
- 						player.setCoins(player.getCoins() + 7);
- 						coinsLabel.setText("Coins: " + player.getCoins());
- 						player.setHealth(player.getHealth() + 10);
- 						hpLabelp.setText("HP: " + player.getHealth());
- 					
- 						nextPosition = "bigTree";
- 						break;
- 				
- 					case "bigTree":
- 					
- 						mainTextArea.setText("You continue on and encounter a big oak tree with a"
- 					 		+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real\ngood.\n"
- 					 		+ "Then a short stubby man comes out from behind the tree");
- 						nextPosition = "oldMan";
- 						break;
- 					
- 					case "oldMan":
- 						 enemyPanel.setVisible(false);
- 						 nextButtonPanel.setVisible(true);
- 						 choiceButtonPanel.setVisible(false);
- 						 
- 						 mainTextArea.setText("\"Hello, would you mind spending some time with an old man\nto pass some time. "
- 						 		+ "I have some dice if you win I will give\nyou the sword\n"
- 						 		+ "If I win you have to help me with a task.\" says the old man.\n"
- 						 		+ "You decide to play the game so you can get the sword.");
- 						 mainTextPanel.setBounds(25,100,800,150);
- 						 
- 						 nextPosition="play";
- 						break;
- 						
- 					case "play":
- 						play();
- 						break;
- 						
- 					case "helpWin":
- 						 knightStory();
- 						break;
- 						
- 					case "dogFight":
- 						dogFight();
- 						break;
- 						
- 					case "knightstory":
- 						knightStory();
- 						break;
- 						
- 					case "bernardTown":
- 						bernardTown();
- 						break;
- 						
- 					case "ogreFightBegin":
- 						mainTextArea.setText("You continue on until you find a tower. You walk in "
- 								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
- 							  
- 						nextPosition = "ogreFight";
- 						break;
- 							 
- 					case "ogreFight":
- 						ogreFight();
- 						break;
- 						
- 					case "ogreWin":
- 						mainTextArea.setText("Now your journey is finished and you travel to Yullie Town");
- 						mainTextPanel.setBounds(50,100,800,150);
- 						nextPosition = "town";
- 					break;
- 					
- 					case "town":
- 						nextButton.setVisible(false);
- 						nextButtonPanel.setVisible(false);
- 						startButtonPanel.setVisible(true);
- 						
- 						 mainTextArea.setText("As you enter Yullie Town you are greeted with excitement\nbecause"
- 								+ " you have just finihed your knighthood. \nCongratulations!!");
-						 
-						 startButton.setText("START OVER");
-						 startButton.addActionListener(startOverHandler);
-						 
-						 nextPosition=" "; 
- 					break;
-				}	
+				switch (nextPosition) {
+					case "banditPlayerWin" -> {
+						mainTextArea.setText("Wow that was easy but you did take some damage\n"
+								+ "You see a health potion and some coins next to him and\npick it up"
+								+ "You gained 10 health");
+						mainTextPanel.setBounds(100, 100, 800, 150);
+						player.setCoins(player.getCoins() + 7);
+						coinsLabel.setText("Coins: " + player.getCoins());
+						player.setHealth(player.getHealth() + 10);
+						hpLabelp.setText("HP: " + player.getHealth());
+						nextPosition = "bigTree";
+					}
+					case "bigTree" -> {
+						mainTextArea.setText("You continue on and encounter a big oak tree with a"
+								+ "long\nsword stuck in it. You tug on it but it is stuck in the tree real\ngood.\n"
+								+ "Then a short stubby man comes out from behind the tree");
+						nextPosition = "oldMan";
+					}
+					case "oldMan" -> {
+						enemyPanel.setVisible(false);
+						nextButtonPanel.setVisible(true);
+						choiceButtonPanel.setVisible(false);
+						mainTextArea.setText("\"Hello, would you mind spending some time with an old man\nto pass some time. "
+								+ "I have some dice if you win I will give\nyou the sword\n"
+								+ "If I win you have to help me with a task.\" says the old man.\n"
+								+ "You decide to play the game so you can get the sword.");
+						mainTextPanel.setBounds(25, 100, 800, 150);
+						nextPosition = "play";
+					}
+					case "play" -> play();
+					case "helpWin", "knightstory" -> knightStory();
+					case "dogFight" -> dogFight();
+					case "bernardTown" -> bernardTown();
+					case "ogreFightBegin" -> {
+						mainTextArea.setText("You continue on until you find a tower. You walk in "
+								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
+						nextPosition = "ogreFight";
+					}
+					case "ogreFight" -> ogreFight();
+					case "ogreWin" -> {
+						mainTextArea.setText("Now your journey is finished and you travel to Yullie Town");
+						mainTextPanel.setBounds(50, 100, 800, 150);
+						nextPosition = "town";
+					}
+					case "town" -> {
+						nextButton.setVisible(false);
+						nextButtonPanel.setVisible(false);
+						startButtonPanel.setVisible(true);
+						mainTextArea.setText("As you enter Yullie Town you are greeted with excitement\nbecause"
+								+ " you have just finihed your knighthood. \nCongratulations!!");
+						startButton.setText("START OVER");
+						startButton.addActionListener(startOverHandler);
+						nextPosition = " ";
+					}
+				}
 		 	}
 	 }
 	 
@@ -654,52 +620,37 @@ public class Game {
 		 		
 		 			switch(nextPosition){
 		 				case "attack":
-		 					switch(yourChoice){
-		 						case "c1":
-		 							attack();
-		 							break;
-		 						case "c2":
-		 							giveUp();
-		 							break;
-		 					}
+							switch (yourChoice) {
+								case "c1" -> attack();
+								case "c2" -> giveUp();
+							}
 		 					break;
 		 					
 		 				case "dogfight":
-		 					switch(yourChoice){
-		 						case "c1":
-		 							dogFight();
-		 							break;
-		 						case "c2":
-		 							knightStory();
-		 							break;
-		 					}
+							switch (yourChoice) {
+								case "c1" -> dogFight();
+								case "c2" -> knightStory();
+							}
 		 					break;
 		 			
 		 				case "helpLost":
-		 					switch(yourChoice){
-		 					case "c1":
-		 						knightStory();
-		 						break;
-		 					case "c2":
-		 						dogFightBegin();
-		 						break;
-		 					}
+							switch (yourChoice) {
+								case "c1" -> knightStory();
+								case "c2" -> dogFightBegin();
+							}
 		 					break;
 		 					
 		 				case "bernardTown":
-		 					switch(yourChoice){
-		 					case "c1":
-		 						shop();
-		 						break;
-		 					case "c2":
-		 						choiceButtonPanel.setVisible(false);
-		 						nextButtonPanel.setVisible(true);
-		 						mainTextArea.setText("You continue on until you find a tower. You walk in "
-		 								+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
-		 							  
-		 						nextPosition = "ogreFight";
-		 						break;
-		 					}
+							switch (yourChoice) {
+								case "c1" -> shop();
+								case "c2" -> {
+									choiceButtonPanel.setVisible(false);
+									nextButtonPanel.setVisible(true);
+									mainTextArea.setText("You continue on until you find a tower. You walk in "
+											+ "and \nthere is an ogre standing there with a big battle axe and he \ncharges straight at you.");
+									nextPosition = "ogreFight";
+								}
+							}
 		 			}	
 		 	}
 	 }
